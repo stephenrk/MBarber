@@ -1,0 +1,54 @@
+﻿@using DataMbarber
+@model List<Cliente>
+<p />
+<table>
+    <tr>
+        <td colspan="2"> <button onclick="location.href='@Url.Action("NewJavaScript", "Cliente")'">Novo</button></td>
+        <button onclick="PreencherGrid();">Pesquisar</button>
+    </tr>
+</table>
+
+<table border="0">
+    <thread>
+        <tr>
+            <th>Codigo              </th>
+            <th>Nome                </th>
+            <th>SobreNome           </th>
+            <th></th>
+        </tr>
+    </thread>
+    <tbody id="tableSupplier"></tbody>
+</table>
+
+
+<script>
+
+    $(document).ready(function () {
+        PreencherGrid();
+    });
+    PreencherGrid();
+    
+    function PreencherGrid() {
+        $.getJSON("@Url.Action("ListClientes", "Cliente")",
+            null, function (data) {
+
+                        var dados = '';
+                        for (var i=0;i<data.length;i++){
+                            dados += '<tr>"'
+                                + '<td>' + data[i].CLiCPF + '   </td>'
+                                + '<td>' + data[i].CliNome + '  </td>'
+                                + '<td>' + data[i].CliSobreNome +  '    </td>'
+                                + '<td>' + '<a href=NewJavaScript/' + data[i].CLiCPF + '>Editar <\a>' + '</td>'
+                            + '<td>' + '</td>'
+                                + '</tr>';
+
+                            
+                        }
+                        $('#tableSupplier').html(dados);
+                        
+                    });
+    }
+
+
+
+</script>

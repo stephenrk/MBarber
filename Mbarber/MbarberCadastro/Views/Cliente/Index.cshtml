@@ -1,0 +1,30 @@
+﻿@using DataMbarber
+@model List<Cliente>
+@{
+    //Layout = null;
+    ViewBag.Title = "Clientes";
+}
+<label>@ViewBag.Message</label>
+    <table border="1">
+        <thread>
+            @Html.ActionLink("New Cliente", "New")
+            <tr>
+                <th>Codigo</th>
+                <th>Nome</th>
+                <th>SobreNome</th>
+                <th></th>
+            </tr>
+        </thread>
+        @{
+            foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.CLiCPF</td>
+                    <td>@item.CliNome</td>
+                    <td>@item.CliSobreNome</td>
+                    @*<a href="\Cliente\Edit?id=@(item.CliCPF)">Editar</a>*@
+                    <td>@Html.ActionLink("Edit", "Edit", new { id = item.CLiCPF })</td>
+                </tr>
+            }
+        }
+    </table>
