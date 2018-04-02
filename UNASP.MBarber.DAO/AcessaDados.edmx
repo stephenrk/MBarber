@@ -1,0 +1,552 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="MbarberModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Agendamentos">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="DataHora" Type="datetime" Nullable="false" />
+          <Property Name="EmpresaId" Type="int" Nullable="false" />
+          <Property Name="ClienteId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Avaliacoes">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Nota" Type="varchar" MaxLength="5" Nullable="false" />
+          <Property Name="Descricao" Type="varchar(max)" />
+          <Property Name="AgendamentoId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Clientes">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Cpf" Type="varchar" MaxLength="14" Nullable="false" />
+          <Property Name="Nome" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Sobrenome" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="Telefone" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="EnderecoId" Type="int" Nullable="false" />
+          <Property Name="LoginId" Type="uniqueidentifier" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Empresas">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Cnpj" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Nome" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="NomeReduzido" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="EnderecoId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Enderecos">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Cep" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="Logradouro" Type="varchar" MaxLength="150" Nullable="false" />
+          <Property Name="Numero" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="Complemento" Type="varchar" MaxLength="150" />
+          <Property Name="Bairro" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Cidade" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Estado" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Logins">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Email" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Senha" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="DataInclusao" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Servicos">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ClienteId" Type="int" Nullable="false" />
+          <Property Name="EmpresaId" Type="int" Nullable="false" />
+          <Property Name="Valor" Type="smallmoney" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_Agendamentos_Clientes">
+          <End Role="Clientes" Type="Self.Clientes" Multiplicity="1" />
+          <End Role="Agendamentos" Type="Self.Agendamentos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Clientes">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Agendamentos">
+              <PropertyRef Name="ClienteId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Agendamentos_Empresas">
+          <End Role="Empresas" Type="Self.Empresas" Multiplicity="1" />
+          <End Role="Agendamentos" Type="Self.Agendamentos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Empresas">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Agendamentos">
+              <PropertyRef Name="EmpresaId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Avaliacoes_Agendamentos">
+          <End Role="Agendamentos" Type="Self.Agendamentos" Multiplicity="1" />
+          <End Role="Avaliacoes" Type="Self.Avaliacoes" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Agendamentos">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Avaliacoes">
+              <PropertyRef Name="AgendamentoId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Clientes_Enderecos">
+          <End Role="Enderecos" Type="Self.Enderecos" Multiplicity="1" />
+          <End Role="Clientes" Type="Self.Clientes" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Enderecos">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Clientes">
+              <PropertyRef Name="EnderecoId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Clientes_Logins">
+          <End Role="Logins" Type="Self.Logins" Multiplicity="1" />
+          <End Role="Clientes" Type="Self.Clientes" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Logins">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Clientes">
+              <PropertyRef Name="LoginId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Empresas_Enderecos">
+          <End Role="Enderecos" Type="Self.Enderecos" Multiplicity="1" />
+          <End Role="Empresas" Type="Self.Empresas" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Enderecos">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Empresas">
+              <PropertyRef Name="EnderecoId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Servicos_Clientes">
+          <End Role="Clientes" Type="Self.Clientes" Multiplicity="1" />
+          <End Role="Servicos" Type="Self.Servicos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Clientes">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Servicos">
+              <PropertyRef Name="ClienteId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Servicos_Empresas">
+          <End Role="Empresas" Type="Self.Empresas" Multiplicity="1" />
+          <End Role="Servicos" Type="Self.Servicos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Empresas">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Servicos">
+              <PropertyRef Name="EmpresaId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="MbarberModelStoreContainer">
+          <EntitySet Name="Agendamentos" EntityType="Self.Agendamentos" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Avaliacoes" EntityType="Self.Avaliacoes" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Clientes" EntityType="Self.Clientes" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Empresas" EntityType="Self.Empresas" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Enderecos" EntityType="Self.Enderecos" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Logins" EntityType="Self.Logins" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Servicos" EntityType="Self.Servicos" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Agendamentos_Clientes" Association="Self.FK_Agendamentos_Clientes">
+            <End Role="Clientes" EntitySet="Clientes" />
+            <End Role="Agendamentos" EntitySet="Agendamentos" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Agendamentos_Empresas" Association="Self.FK_Agendamentos_Empresas">
+            <End Role="Empresas" EntitySet="Empresas" />
+            <End Role="Agendamentos" EntitySet="Agendamentos" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Avaliacoes_Agendamentos" Association="Self.FK_Avaliacoes_Agendamentos">
+            <End Role="Agendamentos" EntitySet="Agendamentos" />
+            <End Role="Avaliacoes" EntitySet="Avaliacoes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Clientes_Enderecos" Association="Self.FK_Clientes_Enderecos">
+            <End Role="Enderecos" EntitySet="Enderecos" />
+            <End Role="Clientes" EntitySet="Clientes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Clientes_Logins" Association="Self.FK_Clientes_Logins">
+            <End Role="Logins" EntitySet="Logins" />
+            <End Role="Clientes" EntitySet="Clientes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Empresas_Enderecos" Association="Self.FK_Empresas_Enderecos">
+            <End Role="Enderecos" EntitySet="Enderecos" />
+            <End Role="Empresas" EntitySet="Empresas" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Servicos_Clientes" Association="Self.FK_Servicos_Clientes">
+            <End Role="Clientes" EntitySet="Clientes" />
+            <End Role="Servicos" EntitySet="Servicos" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Servicos_Empresas" Association="Self.FK_Servicos_Empresas">
+            <End Role="Empresas" EntitySet="Empresas" />
+            <End Role="Servicos" EntitySet="Servicos" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="MbarberModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Agendamento">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="DataHora" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="EmpresaId" Type="Int32" Nullable="false" />
+          <Property Name="ClienteId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Cliente" Relationship="Self.FK_Agendamentos_Clientes" FromRole="Agendamentos" ToRole="Clientes" />
+          <NavigationProperty Name="Empresa" Relationship="Self.FK_Agendamentos_Empresas" FromRole="Agendamentos" ToRole="Empresas" />
+          <NavigationProperty Name="Avaliacoes" Relationship="Self.FK_Avaliacoes_Agendamentos" FromRole="Agendamentos" ToRole="Avaliacoes" />
+        </EntityType>
+        <EntityType Name="Avaliaco">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Nota" Type="String" MaxLength="5" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Descricao" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="AgendamentoId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Agendamento" Relationship="Self.FK_Avaliacoes_Agendamentos" FromRole="Avaliacoes" ToRole="Agendamentos" />
+        </EntityType>
+        <EntityType Name="Cliente">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Cpf" Type="String" MaxLength="14" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Nome" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Sobrenome" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Telefone" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="EnderecoId" Type="Int32" Nullable="false" />
+          <Property Name="LoginId" Type="Guid" Nullable="false" />
+          <NavigationProperty Name="Agendamentos" Relationship="Self.FK_Agendamentos_Clientes" FromRole="Clientes" ToRole="Agendamentos" />
+          <NavigationProperty Name="Endereco" Relationship="Self.FK_Clientes_Enderecos" FromRole="Clientes" ToRole="Enderecos" />
+          <NavigationProperty Name="Login" Relationship="Self.FK_Clientes_Logins" FromRole="Clientes" ToRole="Logins" />
+          <NavigationProperty Name="Servicos" Relationship="Self.FK_Servicos_Clientes" FromRole="Clientes" ToRole="Servicos" />
+        </EntityType>
+        <EntityType Name="Empresa">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Cnpj" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Nome" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="NomeReduzido" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="EnderecoId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Agendamentos" Relationship="Self.FK_Agendamentos_Empresas" FromRole="Empresas" ToRole="Agendamentos" />
+          <NavigationProperty Name="Endereco" Relationship="Self.FK_Empresas_Enderecos" FromRole="Empresas" ToRole="Enderecos" />
+          <NavigationProperty Name="Servicos" Relationship="Self.FK_Servicos_Empresas" FromRole="Empresas" ToRole="Servicos" />
+        </EntityType>
+        <EntityType Name="Endereco">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Cep" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Logradouro" Type="String" MaxLength="150" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Numero" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Complemento" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Name="Bairro" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Cidade" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Estado" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Clientes" Relationship="Self.FK_Clientes_Enderecos" FromRole="Enderecos" ToRole="Clientes" />
+          <NavigationProperty Name="Empresas" Relationship="Self.FK_Empresas_Enderecos" FromRole="Enderecos" ToRole="Empresas" />
+        </EntityType>
+        <EntityType Name="Login">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Guid" Nullable="false" />
+          <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Senha" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="DataInclusao" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="Clientes" Relationship="Self.FK_Clientes_Logins" FromRole="Logins" ToRole="Clientes" />
+        </EntityType>
+        <EntityType Name="Servico">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ClienteId" Type="Int32" Nullable="false" />
+          <Property Name="EmpresaId" Type="Int32" Nullable="false" />
+          <Property Name="Valor" Type="Decimal" Precision="10" Scale="4" Nullable="false" />
+          <NavigationProperty Name="Cliente" Relationship="Self.FK_Servicos_Clientes" FromRole="Servicos" ToRole="Clientes" />
+          <NavigationProperty Name="Empresa" Relationship="Self.FK_Servicos_Empresas" FromRole="Servicos" ToRole="Empresas" />
+        </EntityType>
+        <Association Name="FK_Agendamentos_Clientes">
+          <End Role="Clientes" Type="Self.Cliente" Multiplicity="1" />
+          <End Role="Agendamentos" Type="Self.Agendamento" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Clientes">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Agendamentos">
+              <PropertyRef Name="ClienteId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Agendamentos_Empresas">
+          <End Role="Empresas" Type="Self.Empresa" Multiplicity="1" />
+          <End Role="Agendamentos" Type="Self.Agendamento" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Empresas">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Agendamentos">
+              <PropertyRef Name="EmpresaId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Avaliacoes_Agendamentos">
+          <End Role="Agendamentos" Type="Self.Agendamento" Multiplicity="1" />
+          <End Role="Avaliacoes" Type="Self.Avaliaco" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Agendamentos">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Avaliacoes">
+              <PropertyRef Name="AgendamentoId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Clientes_Enderecos">
+          <End Role="Enderecos" Type="Self.Endereco" Multiplicity="1" />
+          <End Role="Clientes" Type="Self.Cliente" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Enderecos">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Clientes">
+              <PropertyRef Name="EnderecoId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Clientes_Logins">
+          <End Role="Logins" Type="Self.Login" Multiplicity="1" />
+          <End Role="Clientes" Type="Self.Cliente" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Logins">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Clientes">
+              <PropertyRef Name="LoginId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Servicos_Clientes">
+          <End Role="Clientes" Type="Self.Cliente" Multiplicity="1" />
+          <End Role="Servicos" Type="Self.Servico" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Clientes">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Servicos">
+              <PropertyRef Name="ClienteId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Empresas_Enderecos">
+          <End Role="Enderecos" Type="Self.Endereco" Multiplicity="1" />
+          <End Role="Empresas" Type="Self.Empresa" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Enderecos">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Empresas">
+              <PropertyRef Name="EnderecoId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Servicos_Empresas">
+          <End Role="Empresas" Type="Self.Empresa" Multiplicity="1" />
+          <End Role="Servicos" Type="Self.Servico" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Empresas">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Servicos">
+              <PropertyRef Name="EmpresaId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="MbarberEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Agendamentos" EntityType="Self.Agendamento" />
+          <EntitySet Name="Avaliacoes" EntityType="Self.Avaliaco" />
+          <EntitySet Name="Clientes" EntityType="Self.Cliente" />
+          <EntitySet Name="Empresas" EntityType="Self.Empresa" />
+          <EntitySet Name="Enderecos" EntityType="Self.Endereco" />
+          <EntitySet Name="Logins" EntityType="Self.Login" />
+          <EntitySet Name="Servicos" EntityType="Self.Servico" />
+          <AssociationSet Name="FK_Agendamentos_Clientes" Association="Self.FK_Agendamentos_Clientes">
+            <End Role="Clientes" EntitySet="Clientes" />
+            <End Role="Agendamentos" EntitySet="Agendamentos" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Agendamentos_Empresas" Association="Self.FK_Agendamentos_Empresas">
+            <End Role="Empresas" EntitySet="Empresas" />
+            <End Role="Agendamentos" EntitySet="Agendamentos" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Avaliacoes_Agendamentos" Association="Self.FK_Avaliacoes_Agendamentos">
+            <End Role="Agendamentos" EntitySet="Agendamentos" />
+            <End Role="Avaliacoes" EntitySet="Avaliacoes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Clientes_Enderecos" Association="Self.FK_Clientes_Enderecos">
+            <End Role="Enderecos" EntitySet="Enderecos" />
+            <End Role="Clientes" EntitySet="Clientes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Clientes_Logins" Association="Self.FK_Clientes_Logins">
+            <End Role="Logins" EntitySet="Logins" />
+            <End Role="Clientes" EntitySet="Clientes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Servicos_Clientes" Association="Self.FK_Servicos_Clientes">
+            <End Role="Clientes" EntitySet="Clientes" />
+            <End Role="Servicos" EntitySet="Servicos" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Empresas_Enderecos" Association="Self.FK_Empresas_Enderecos">
+            <End Role="Enderecos" EntitySet="Enderecos" />
+            <End Role="Empresas" EntitySet="Empresas" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Servicos_Empresas" Association="Self.FK_Servicos_Empresas">
+            <End Role="Empresas" EntitySet="Empresas" />
+            <End Role="Servicos" EntitySet="Servicos" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="MbarberModelStoreContainer" CdmEntityContainer="MbarberEntities">
+          <EntitySetMapping Name="Agendamentos">
+            <EntityTypeMapping TypeName="MbarberModel.Agendamento">
+              <MappingFragment StoreEntitySet="Agendamentos">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="DataHora" ColumnName="DataHora" />
+                <ScalarProperty Name="EmpresaId" ColumnName="EmpresaId" />
+                <ScalarProperty Name="ClienteId" ColumnName="ClienteId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Avaliacoes">
+            <EntityTypeMapping TypeName="MbarberModel.Avaliaco">
+              <MappingFragment StoreEntitySet="Avaliacoes">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Nota" ColumnName="Nota" />
+                <ScalarProperty Name="Descricao" ColumnName="Descricao" />
+                <ScalarProperty Name="AgendamentoId" ColumnName="AgendamentoId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Clientes">
+            <EntityTypeMapping TypeName="MbarberModel.Cliente">
+              <MappingFragment StoreEntitySet="Clientes">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Cpf" ColumnName="Cpf" />
+                <ScalarProperty Name="Nome" ColumnName="Nome" />
+                <ScalarProperty Name="Sobrenome" ColumnName="Sobrenome" />
+                <ScalarProperty Name="Telefone" ColumnName="Telefone" />
+                <ScalarProperty Name="EnderecoId" ColumnName="EnderecoId" />
+                <ScalarProperty Name="LoginId" ColumnName="LoginId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Empresas">
+            <EntityTypeMapping TypeName="MbarberModel.Empresa">
+              <MappingFragment StoreEntitySet="Empresas">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Cnpj" ColumnName="Cnpj" />
+                <ScalarProperty Name="Nome" ColumnName="Nome" />
+                <ScalarProperty Name="NomeReduzido" ColumnName="NomeReduzido" />
+                <ScalarProperty Name="EnderecoId" ColumnName="EnderecoId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Enderecos">
+            <EntityTypeMapping TypeName="MbarberModel.Endereco">
+              <MappingFragment StoreEntitySet="Enderecos">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Cep" ColumnName="Cep" />
+                <ScalarProperty Name="Logradouro" ColumnName="Logradouro" />
+                <ScalarProperty Name="Numero" ColumnName="Numero" />
+                <ScalarProperty Name="Complemento" ColumnName="Complemento" />
+                <ScalarProperty Name="Bairro" ColumnName="Bairro" />
+                <ScalarProperty Name="Cidade" ColumnName="Cidade" />
+                <ScalarProperty Name="Estado" ColumnName="Estado" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Logins">
+            <EntityTypeMapping TypeName="MbarberModel.Login">
+              <MappingFragment StoreEntitySet="Logins">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Senha" ColumnName="Senha" />
+                <ScalarProperty Name="DataInclusao" ColumnName="DataInclusao" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Servicos">
+            <EntityTypeMapping TypeName="MbarberModel.Servico">
+              <MappingFragment StoreEntitySet="Servicos">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="ClienteId" ColumnName="ClienteId" />
+                <ScalarProperty Name="EmpresaId" ColumnName="EmpresaId" />
+                <ScalarProperty Name="Valor" ColumnName="Valor" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

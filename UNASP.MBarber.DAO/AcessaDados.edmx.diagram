@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="17503b0682d94abbb1efc030c595eff5" Name="Diagram1">
+        <EntityTypeShape EntityType="MbarberModel.Agendamento" Width="1.5" PointX="5.25" PointY="6.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="MbarberModel.Avaliaco" Width="1.5" PointX="7.5" PointY="6.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="MbarberModel.Cliente" Width="1.5" PointX="3" PointY="4.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="MbarberModel.Empresa" Width="1.5" PointX="3" PointY="8.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="MbarberModel.Endereco" Width="1.5" PointX="0.75" PointY="4.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="MbarberModel.Login" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="MbarberModel.Servico" Width="1.5" PointX="5.25" PointY="9.5" IsExpanded="true" />
+        <AssociationConnector Association="MbarberModel.FK_Agendamentos_Clientes" ManuallyRouted="false" />
+        <AssociationConnector Association="MbarberModel.FK_Agendamentos_Empresas" ManuallyRouted="false" />
+        <AssociationConnector Association="MbarberModel.FK_Avaliacoes_Agendamentos" ManuallyRouted="false" />
+        <AssociationConnector Association="MbarberModel.FK_Clientes_Enderecos" ManuallyRouted="false" />
+        <AssociationConnector Association="MbarberModel.FK_Clientes_Logins" ManuallyRouted="false" />
+        <AssociationConnector Association="MbarberModel.FK_Servicos_Clientes" ManuallyRouted="false" />
+        <AssociationConnector Association="MbarberModel.FK_Empresas_Enderecos" ManuallyRouted="false" />
+        <AssociationConnector Association="MbarberModel.FK_Servicos_Empresas" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
