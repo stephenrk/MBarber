@@ -32,7 +32,7 @@ namespace UNASP.MBarber.UI.Web.Controllers
                 var senhaCripto = Criptografia.CriptografaMd5(senha);
 
                 Mapper.Initialize(cfg => {
-                    cfg.CreateMap<Login, LoginDTO>();
+                    cfg.CreateMap<Login, LoginDTO>().ForMember(x => x.Clientes, opt => opt.Ignore());
                 });
                 var validarAcesso = Mapper.Map<Login, LoginDTO>(loginRepository.AutenticarAcesso(email, senhaCripto));
 
