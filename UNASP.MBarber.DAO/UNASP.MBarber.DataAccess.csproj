@@ -89,8 +89,6 @@
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>AcessaDados.Designer.cs</LastGenOutput>
     </EntityDeploy>
-  </ItemGroup>
-  <ItemGroup>
     <None Include="AcessaDados.edmx.diagram">
       <DependentUpon>AcessaDados.edmx</DependentUpon>
     </None>
@@ -98,19 +96,19 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
     <Content Include="AcessaDados.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>AcessaDados.Context.cs</LastGenOutput>
       <DependentUpon>AcessaDados.edmx</DependentUpon>
+      <LastGenOutput>AcessaDados.Context.cs</LastGenOutput>
     </Content>
     <Content Include="AcessaDados.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>AcessaDados.edmx</DependentUpon>
       <LastGenOutput>AcessaDados.cs</LastGenOutput>
     </Content>
-  </ItemGroup>
-  <ItemGroup>
-    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -17,7 +17,6 @@ namespace UNASP.MBarber.DataAccess
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Empresa()
         {
-            this.Agendamentos = new HashSet<Agendamento>();
             this.Servicos = new HashSet<Servico>();
         }
     
@@ -27,8 +26,6 @@ namespace UNASP.MBarber.DataAccess
         public string NomeReduzido { get; set; }
         public int EnderecoId { get; set; }
     
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Agendamento> Agendamentos { get; set; }
         public virtual Endereco Endereco { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Servico> Servicos { get; set; }

@@ -17,8 +17,8 @@ namespace UNASP.MBarber.DataAccess
         public int Id { get; set; }
         public string Nota { get; set; }
         public string Descricao { get; set; }
-        public int AgendamentoId { get; set; }
+        public int ServicoId { get; set; }
     
-        public virtual Agendamento Agendamento { get; set; }
+        public virtual Servico Servico { get; set; }
     }
 }

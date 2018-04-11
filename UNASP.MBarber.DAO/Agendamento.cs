@@ -17,17 +17,15 @@ namespace UNASP.MBarber.DataAccess
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Agendamento()
         {
-            this.Avaliacoes = new HashSet<Avaliaco>();
+            this.Servicos = new HashSet<Servico>();
         }
     
         public int Id { get; set; }
         public System.DateTime DataHora { get; set; }
-        public int EmpresaId { get; set; }
         public int ClienteId { get; set; }
     
         public virtual Cliente Cliente { get; set; }
-        public virtual Empresa Empresa { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Avaliaco> Avaliacoes { get; set; }
+        public virtual ICollection<Servico> Servicos { get; set; }
     }
 }
