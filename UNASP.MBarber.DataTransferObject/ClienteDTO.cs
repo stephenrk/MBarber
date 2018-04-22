@@ -11,7 +11,7 @@ namespace UNASP.MBarber.DataTransferObject
             this.Servicos = new HashSet<ServicoDTO>();
         }
 
-        public int Id { get; set; }
+        public Guid Id { get; set; }
         public string Cpf { get; set; }
         public string Nome { get; set; }
         public string Sobrenome { get; set; }

@@ -4,10 +4,10 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="7289a4fb5d0749b4b6ca3c7afb7c284d" Name="Diagram1" ZoomLevel="70">
+      <Diagram DiagramId="0ed8847eebb3458ea13101cb18ea5396" Name="Diagram1">
         <EntityTypeShape EntityType="MbarberModel.Agendamento" Width="1.5" PointX="5.25" PointY="4.75" IsExpanded="true" />
         <EntityTypeShape EntityType="MbarberModel.Avaliaco" Width="1.5" PointX="9.75" PointY="6.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="MbarberModel.Cliente" Width="1.5" PointX="3.125" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="MbarberModel.Cliente" Width="1.5" PointX="3" PointY="4.25" IsExpanded="true" />
         <EntityTypeShape EntityType="MbarberModel.Empresa" Width="1.5" PointX="3" PointY="8.25" IsExpanded="true" />
         <EntityTypeShape EntityType="MbarberModel.Endereco" Width="1.5" PointX="0.75" PointY="4.25" IsExpanded="true" />
         <EntityTypeShape EntityType="MbarberModel.Login" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
@@ -16,9 +16,9 @@
         <AssociationConnector Association="MbarberModel.FK_Servicos_Agendamentos" ManuallyRouted="false" />
         <AssociationConnector Association="MbarberModel.FK_Avaliacoes_Servicos" ManuallyRouted="false" />
         <AssociationConnector Association="MbarberModel.FK_Clientes_Enderecos" ManuallyRouted="false" />
+        <AssociationConnector Association="MbarberModel.FK_Clientes_Logins" ManuallyRouted="false" />
         <AssociationConnector Association="MbarberModel.FK_Empresas_Enderecos" ManuallyRouted="false" />
         <AssociationConnector Association="MbarberModel.FK_Servicos_Empresas" ManuallyRouted="false" />
-        <AssociationConnector Association="MbarberModel.FK_Clientes_Logins" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

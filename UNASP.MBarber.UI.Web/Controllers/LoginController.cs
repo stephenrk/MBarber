@@ -6,18 +6,24 @@ using UNASP.MBarber.DataAccess;
 using UNASP.MBarber.DataTransferObject;
 using UNASP.MBarber.Repository;
 using UNASP.MBarber.UI.Web.Filters;
+using UNASP.MBarber.UI.Web.ViewModels;
 
 namespace UNASP.MBarber.UI.Web.Controllers
 {
     [RoutePrefix("acesso-ao-sistema")]
     public class LoginController : Controller
     {
+
+        #region Repository
+
         private LoginRepository loginRepository;
 
         public LoginController()
         {
             this.loginRepository = new LoginRepository();
         }
+
+        #endregion
 
         public ActionResult Index()
         {
@@ -27,19 +33,22 @@ namespace UNASP.MBarber.UI.Web.Controllers
         [HttpPost]
         public ActionResult Autenticar(string email, string senha)
         {
+            // Verifica se o estado do modelo está válido
             if (ModelState.IsValid)
             {
+                // Criptografa a senha inserida pelo usuário
                 var senhaCripto = Criptografia.CriptografaMd5(senha);
 
-                Mapper.Initialize(cfg => {
-                    cfg.CreateMap<Login, LoginDTO>().ForMember(x => x.Clientes, opt => opt.Ignore());
-                });
+                // Mapper serve para fazer a ponte das propriedades do DTO para as propriedades do dominio que representa o BD
+                // Aqui chamamos a lógica de autenticação e retornamos o usuário a ser logado
                 var validarAcesso = Mapper.Map<Login, LoginDTO>(loginRepository.AutenticarAcesso(email, senhaCripto));
 
+                // Se não achar o usuário, devolve erro
+                // Se achar, adiciona ele na session e cria o cookie
                 if (validarAcesso == null)
                 {
                     ViewBag.Error = true;
-                    ModelState.AddModelError("login.Invalido", "Usuário ou senha Inválido, tente novamente!");
+                    ModelState.AddModelError("login.Invalido", "Usuário ou senha inválido!");
                 }
                 else
                 {
@@ -61,6 +70,7 @@ namespace UNASP.MBarber.UI.Web.Controllers
         {
             Session.Abandon();
             Session.RemoveAll();
+            System.Web.Security.FormsAuthentication.SignOut();
             return View("Index");
         }
 
@@ -74,31 +84,40 @@ namespace UNASP.MBarber.UI.Web.Controllers
         [Route("novo-acesso")]
         [ClaimsAuthorize("CriarAcesso", "CA")]
         [ValidateAntiForgeryToken]
-        public ActionResult CriarAcesso([Bind(Include = "Id,Email,Senha")] LoginDTO login)
+        public ActionResult CriarAcesso(RegisterViewModel registro)
         {
             if (ModelState.IsValid)
             {
-                var verificarExistenciaEmail = loginRepository.BuscarPorEmail(login.Email);
+                var verificarExistenciaEmail = loginRepository.BuscarPorEmail(registro.Login.Email);
 
                 if (verificarExistenciaEmail == null)
                 {
                     ModelState.AddModelError("login.invalido", "Esse e-mail já está sendo utilizado, por favor, utilize um e-mail alternativo");
-                    return View(login);
+                    return View(registro);
                 }
                 else
                 {
-                    var loginDomain = Mapper.Map<LoginDTO, Login>(login);
+                    var loginDomain = new LoginDTO
+                    {
+                        Email = registro.Login.Email,
+                        Senha = Criptografia.CriptografaMd5(registro.Login.Senha),
+                        DataInclusao = DateTime.Now,
+                        Clientes = new ClienteDTO
+                        {
+                            Nome = registro.Nome,
+                            
+                        }
+                    };
 
-                    loginDomain.DataInclusao = DateTime.Now;
-                    loginDomain.Senha = Criptografia.CriptografaMd5(login.Senha);
+                    
 
-                    loginRepository.Inserir(loginDomain);
+                    //loginRepository.Inserir(loginDomain);
                     return RedirectToAction("Index");
                 }
             }
             else
             {
-                return View(login);
+                return View(registro);
             }
         }
 

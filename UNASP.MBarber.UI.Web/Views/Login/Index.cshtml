@@ -40,6 +40,10 @@
             @using (Html.BeginForm("Autenticar", "Login", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "m-t", role = "form" }))
             {
                 @Html.AntiForgeryToken()
+                if (ViewBag.Error == true)
+                {
+                    @Html.ValidationMessage("login.Invalido", "", new { @class = "text-danger", @style = "color:red;" })
+                }
                 <div class="form-group">
                     @Html.TextBoxFor(m => m.Email, new { @class = "form-control", placeholder = "E-mail", required = "required" })
                     @Html.ValidationMessageFor(m => m.Email, "", new { @class = "text-danger" })
@@ -52,7 +56,7 @@
 
                 @*<a href="#"><small>Forgot password?</small></a>*@
                 <p class="text-muted text-center"><small>Ainda não tem uma conta?</small></p>
-                <a class="btn btn-sm btn-white btn-block" href="#">Registrar</a>
+                @Html.ActionLink("Registrar", "CriarAcesso", null, new { @class = "btn btn-sm btn-white btn-block" })
             }
             <p class="m-t"> <small>Inspinia we app framework base on Bootstrap 3 &copy; 2014</small> </p>
         </div>

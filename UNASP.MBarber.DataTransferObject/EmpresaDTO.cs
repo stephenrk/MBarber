@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace UNASP.MBarber.DataTransferObject
 {
@@ -10,7 +11,7 @@ namespace UNASP.MBarber.DataTransferObject
             this.Servicos = new HashSet<ServicoDTO>();
         }
 
-        public int Id { get; set; }
+        public Guid Id { get; set; }
         public string Cnpj { get; set; }
         public string Nome { get; set; }
         public string NomeReduzido { get; set; }

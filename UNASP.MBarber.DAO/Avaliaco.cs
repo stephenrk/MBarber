@@ -14,10 +14,10 @@ namespace UNASP.MBarber.DataAccess
     
     public partial class Avaliaco
     {
-        public int Id { get; set; }
+        public System.Guid Id { get; set; }
         public string Nota { get; set; }
         public string Descricao { get; set; }
-        public int ServicoId { get; set; }
+        public System.Guid ServicoId { get; set; }
     
         public virtual Servico Servico { get; set; }
     }

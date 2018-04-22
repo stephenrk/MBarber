@@ -20,7 +20,7 @@ namespace UNASP.MBarber.DataAccess
             this.Agendamentos = new HashSet<Agendamento>();
         }
     
-        public int Id { get; set; }
+        public System.Guid Id { get; set; }
         public string Cpf { get; set; }
         public string Nome { get; set; }
         public string Sobrenome { get; set; }

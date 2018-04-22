@@ -14,6 +14,9 @@ namespace UNASP.MBarber.UI.Web
             ViewEngines.Engines.Clear();
             ViewEngines.Engines.Add(new RazorViewEngine());
             BundleConfig.RegisterBundles(BundleTable.Bundles);
+
+            // Inicialiar AutoMapper
+            App_Start.AutoMapperConfig.Initialize();
         }
     }
 }

@@ -22,7 +22,7 @@ namespace UNASP.MBarber.DataAccess
     
         public int Id { get; set; }
         public System.DateTime DataHora { get; set; }
-        public int ClienteId { get; set; }
+        public System.Guid ClienteId { get; set; }
     
         public virtual Cliente Cliente { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

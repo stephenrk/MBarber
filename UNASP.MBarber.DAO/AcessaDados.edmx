@@ -4,29 +4,29 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="MbarberModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+      <Schema Namespace="MbarberModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Agendamentos">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="DataHora" Type="datetime" Nullable="false" />
-          <Property Name="ClienteId" Type="int" Nullable="false" />
+          <Property Name="ClienteId" Type="uniqueidentifier" Nullable="false" />
         </EntityType>
         <EntityType Name="Avaliacoes">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
           <Property Name="Nota" Type="varchar" MaxLength="5" Nullable="false" />
           <Property Name="Descricao" Type="varchar(max)" />
-          <Property Name="ServicoId" Type="int" Nullable="false" />
+          <Property Name="ServicoId" Type="uniqueidentifier" Nullable="false" />
         </EntityType>
         <EntityType Name="Clientes">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
           <Property Name="Cpf" Type="varchar" MaxLength="14" Nullable="false" />
           <Property Name="Nome" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="Sobrenome" Type="varchar" MaxLength="100" Nullable="false" />
@@ -38,7 +38,7 @@
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
           <Property Name="Cnpj" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="Nome" Type="varchar" MaxLength="255" Nullable="false" />
           <Property Name="NomeReduzido" Type="varchar" MaxLength="50" Nullable="false" />
@@ -70,9 +70,9 @@
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
           <Property Name="AgendamentoId" Type="int" Nullable="false" />
-          <Property Name="EmpresaId" Type="int" Nullable="false" />
+          <Property Name="EmpresaId" Type="uniqueidentifier" Nullable="false" />
           <Property Name="Valor" Type="smallmoney" Nullable="false" />
         </EntityType>
         <Association Name="FK_Agendamentos_Clientes">
@@ -196,7 +196,8 @@
             <End Role="Servicos" EntitySet="Servicos" />
           </AssociationSet>
         </EntityContainer>
-      </Schema></edmx:StorageModels>
+      </Schema>
+    </edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="MbarberModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -206,7 +207,7 @@
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="DataHora" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="ClienteId" Type="Int32" Nullable="false" />
+          <Property Name="ClienteId" Type="Guid" Nullable="false" />
           <NavigationProperty Name="Cliente" Relationship="Self.FK_Agendamentos_Clientes" FromRole="Agendamentos" ToRole="Clientes" />
           <NavigationProperty Name="Servicos" Relationship="Self.FK_Servicos_Agendamentos" FromRole="Agendamentos" ToRole="Servicos" />
         </EntityType>
@@ -214,17 +215,17 @@
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Id" Type="Guid" Nullable="false" />
           <Property Name="Nota" Type="String" MaxLength="5" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="Descricao" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <Property Name="ServicoId" Type="Int32" Nullable="false" />
+          <Property Name="ServicoId" Type="Guid" Nullable="false" />
           <NavigationProperty Name="Servico" Relationship="Self.FK_Avaliacoes_Servicos" FromRole="Avaliacoes" ToRole="Servicos" />
         </EntityType>
         <EntityType Name="Cliente">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Id" Type="Guid" Nullable="false" />
           <Property Name="Cpf" Type="String" MaxLength="14" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="Nome" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="Sobrenome" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
@@ -233,13 +234,13 @@
           <Property Name="LoginId" Type="Guid" Nullable="false" />
           <NavigationProperty Name="Agendamentos" Relationship="Self.FK_Agendamentos_Clientes" FromRole="Clientes" ToRole="Agendamentos" />
           <NavigationProperty Name="Endereco" Relationship="Self.FK_Clientes_Enderecos" FromRole="Clientes" ToRole="Enderecos" />
-          <NavigationProperty Name="Login" Relationship="MbarberModel.FK_Clientes_Logins" FromRole="Cliente" ToRole="Login" />
+          <NavigationProperty Name="Login" Relationship="Self.FK_Clientes_Logins" FromRole="Clientes" ToRole="Logins" />
         </EntityType>
         <EntityType Name="Empresa">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Id" Type="Guid" Nullable="false" />
           <Property Name="Cnpj" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="Nome" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="NomeReduzido" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
@@ -270,15 +271,15 @@
           <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="Senha" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="DataInclusao" Type="DateTime" Nullable="false" Precision="3" />
-          <NavigationProperty Name="Clientes" Relationship="MbarberModel.FK_Clientes_Logins" FromRole="Login" ToRole="Cliente" />
+          <NavigationProperty Name="Clientes" Relationship="Self.FK_Clientes_Logins" FromRole="Logins" ToRole="Clientes" />
         </EntityType>
         <EntityType Name="Servico">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Id" Type="Guid" Nullable="false" />
           <Property Name="AgendamentoId" Type="Int32" Nullable="false" />
-          <Property Name="EmpresaId" Type="Int32" Nullable="false" />
+          <Property Name="EmpresaId" Type="Guid" Nullable="false" />
           <Property Name="Valor" Type="Decimal" Precision="10" Scale="4" Nullable="false" />
           <NavigationProperty Name="Agendamento" Relationship="Self.FK_Servicos_Agendamentos" FromRole="Servicos" ToRole="Agendamentos" />
           <NavigationProperty Name="Avaliacoes" Relationship="Self.FK_Avaliacoes_Servicos" FromRole="Servicos" ToRole="Avaliacoes" />
@@ -332,6 +333,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Clientes_Logins">
+          <End Role="Logins" Type="Self.Login" Multiplicity="1" />
+          <End Role="Clientes" Type="Self.Cliente" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Logins">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Clientes">
+              <PropertyRef Name="LoginId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Empresas_Enderecos">
           <End Role="Enderecos" Type="Self.Endereco" Multiplicity="1" />
           <End Role="Empresas" Type="Self.Empresa" Multiplicity="*" />
@@ -380,6 +393,10 @@
             <End Role="Enderecos" EntitySet="Enderecos" />
             <End Role="Clientes" EntitySet="Clientes" />
           </AssociationSet>
+          <AssociationSet Name="FK_Clientes_Logins" Association="Self.FK_Clientes_Logins">
+            <End Role="Logins" EntitySet="Logins" />
+            <End Role="Clientes" EntitySet="Clientes" />
+          </AssociationSet>
           <AssociationSet Name="FK_Empresas_Enderecos" Association="Self.FK_Empresas_Enderecos">
             <End Role="Enderecos" EntitySet="Enderecos" />
             <End Role="Empresas" EntitySet="Empresas" />
@@ -388,23 +405,7 @@
             <End Role="Empresas" EntitySet="Empresas" />
             <End Role="Servicos" EntitySet="Servicos" />
           </AssociationSet>
-          <AssociationSet Name="FK_Clientes_Logins" Association="MbarberModel.FK_Clientes_Logins">
-            <End Role="Login" EntitySet="Logins" />
-            <End Role="Cliente" EntitySet="Clientes" />
-          </AssociationSet>
         </EntityContainer>
-        <Association Name="FK_Clientes_Logins">
-          <End Type="MbarberModel.Login" Role="Login" Multiplicity="1" />
-          <End Type="MbarberModel.Cliente" Role="Cliente" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Login">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="Cliente">
-              <PropertyRef Name="LoginId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->

@@ -20,7 +20,7 @@ namespace UNASP.MBarber.DataAccess
             this.Servicos = new HashSet<Servico>();
         }
     
-        public int Id { get; set; }
+        public System.Guid Id { get; set; }
         public string Cnpj { get; set; }
         public string Nome { get; set; }
         public string NomeReduzido { get; set; }
