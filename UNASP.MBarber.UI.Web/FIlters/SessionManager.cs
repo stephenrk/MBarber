@@ -1,11 +1,11 @@
 ﻿using System.Web;
-using UNASP.MBarber.DataTransferObject;
+using UNASP.MBarber.UI.Web.ViewModels;
 
 namespace UNASP.MBarber.UI.Web.Filters
 {
     public class SessionManager
     {
-        public static LoginDTO UsuarioLogado
+        public static LoginModel UsuarioLogado
         {
             set
             {
@@ -14,7 +14,7 @@ namespace UNASP.MBarber.UI.Web.Filters
             }
             get
             {
-                return (LoginDTO)HttpContext.Current.Session["UsuarioLogado"];
+                return (LoginModel)HttpContext.Current.Session["UsuarioLogado"];
             }
 
         }
@@ -23,7 +23,7 @@ namespace UNASP.MBarber.UI.Web.Filters
         {
             get
             {
-                return ((LoginDTO)HttpContext.Current.Session["UsuarioLogado"]) != null;
+                return ((LoginModel)HttpContext.Current.Session["UsuarioLogado"]) != null;
             }
         }
     }

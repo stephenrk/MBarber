@@ -6,20 +6,16 @@ namespace UNASP.MBarber.Repository
 {
     public class LoginRepository
     {
+        private MbarberEntities _conexao = new MbarberEntities();
+
         public Login BuscarPorEmail(string email)
         {
-            using (MbarberEntities _conexao = new MbarberEntities())
-            {
-                return _conexao.Logins.Find(email);
-            }
+            return _conexao.Logins.Where(l => l.Email == email).FirstOrDefault();
         }
 
         public Login AutenticarAcesso(string email, string senha)
         {
-            using (MbarberEntities _conexao = new MbarberEntities())
-            {
-                return _conexao.Logins.Where(l => l.Email == email && l.Senha == senha).FirstOrDefault();
-            }
+            return _conexao.Logins.Where(l => l.Email == email && l.Senha == senha).FirstOrDefault();
         }
 
         public void Inserir(Login loginDomain)

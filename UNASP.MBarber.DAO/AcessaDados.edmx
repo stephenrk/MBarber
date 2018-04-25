@@ -32,7 +32,6 @@
           <Property Name="Sobrenome" Type="varchar" MaxLength="100" Nullable="false" />
           <Property Name="Telefone" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="EnderecoId" Type="int" Nullable="false" />
-          <Property Name="LoginId" Type="uniqueidentifier" Nullable="false" />
         </EntityType>
         <EntityType Name="Empresas">
           <Key>
@@ -65,6 +64,7 @@
           <Property Name="Email" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="Senha" Type="varchar" MaxLength="100" Nullable="false" />
           <Property Name="DataInclusao" Type="datetime" Nullable="false" />
+          <Property Name="ClienteId" Type="uniqueidentifier" />
         </EntityType>
         <EntityType Name="Servicos">
           <Key>
@@ -111,18 +111,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Clientes_Logins">
-          <End Role="Logins" Type="Self.Logins" Multiplicity="1" />
-          <End Role="Clientes" Type="Self.Clientes" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Logins">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="Clientes">
-              <PropertyRef Name="LoginId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_Empresas_Enderecos">
           <End Role="Enderecos" Type="Self.Enderecos" Multiplicity="1" />
           <End Role="Empresas" Type="Self.Empresas" Multiplicity="*" />
@@ -132,6 +120,18 @@
             </Principal>
             <Dependent Role="Empresas">
               <PropertyRef Name="EnderecoId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Logins_Clientes">
+          <End Role="Clientes" Type="Self.Clientes" Multiplicity="0..1" />
+          <End Role="Logins" Type="Self.Logins" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Clientes">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Logins">
+              <PropertyRef Name="ClienteId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -179,13 +179,13 @@
             <End Role="Enderecos" EntitySet="Enderecos" />
             <End Role="Clientes" EntitySet="Clientes" />
           </AssociationSet>
-          <AssociationSet Name="FK_Clientes_Logins" Association="Self.FK_Clientes_Logins">
-            <End Role="Logins" EntitySet="Logins" />
-            <End Role="Clientes" EntitySet="Clientes" />
-          </AssociationSet>
           <AssociationSet Name="FK_Empresas_Enderecos" Association="Self.FK_Empresas_Enderecos">
             <End Role="Enderecos" EntitySet="Enderecos" />
             <End Role="Empresas" EntitySet="Empresas" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Logins_Clientes" Association="Self.FK_Logins_Clientes">
+            <End Role="Clientes" EntitySet="Clientes" />
+            <End Role="Logins" EntitySet="Logins" />
           </AssociationSet>
           <AssociationSet Name="FK_Servicos_Agendamentos" Association="Self.FK_Servicos_Agendamentos">
             <End Role="Agendamentos" EntitySet="Agendamentos" />
@@ -231,10 +231,9 @@
           <Property Name="Sobrenome" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="Telefone" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="EnderecoId" Type="Int32" Nullable="false" />
-          <Property Name="LoginId" Type="Guid" Nullable="false" />
           <NavigationProperty Name="Agendamentos" Relationship="Self.FK_Agendamentos_Clientes" FromRole="Clientes" ToRole="Agendamentos" />
           <NavigationProperty Name="Endereco" Relationship="Self.FK_Clientes_Enderecos" FromRole="Clientes" ToRole="Enderecos" />
-          <NavigationProperty Name="Login" Relationship="Self.FK_Clientes_Logins" FromRole="Clientes" ToRole="Logins" />
+          <NavigationProperty Name="Logins" Relationship="Self.FK_Logins_Clientes" FromRole="Clientes" ToRole="Logins" />
         </EntityType>
         <EntityType Name="Empresa">
           <Key>
@@ -271,7 +270,8 @@
           <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="Senha" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="DataInclusao" Type="DateTime" Nullable="false" Precision="3" />
-          <NavigationProperty Name="Clientes" Relationship="Self.FK_Clientes_Logins" FromRole="Logins" ToRole="Clientes" />
+          <Property Name="ClienteId" Type="Guid" />
+          <NavigationProperty Name="Cliente" Relationship="Self.FK_Logins_Clientes" FromRole="Logins" ToRole="Clientes" />
         </EntityType>
         <EntityType Name="Servico">
           <Key>
@@ -333,15 +333,15 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Clientes_Logins">
-          <End Role="Logins" Type="Self.Login" Multiplicity="1" />
-          <End Role="Clientes" Type="Self.Cliente" Multiplicity="*" />
+        <Association Name="FK_Logins_Clientes">
+          <End Role="Clientes" Type="Self.Cliente" Multiplicity="0..1" />
+          <End Role="Logins" Type="Self.Login" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="Logins">
+            <Principal Role="Clientes">
               <PropertyRef Name="Id" />
             </Principal>
-            <Dependent Role="Clientes">
-              <PropertyRef Name="LoginId" />
+            <Dependent Role="Logins">
+              <PropertyRef Name="ClienteId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -393,9 +393,9 @@
             <End Role="Enderecos" EntitySet="Enderecos" />
             <End Role="Clientes" EntitySet="Clientes" />
           </AssociationSet>
-          <AssociationSet Name="FK_Clientes_Logins" Association="Self.FK_Clientes_Logins">
-            <End Role="Logins" EntitySet="Logins" />
+          <AssociationSet Name="FK_Logins_Clientes" Association="Self.FK_Logins_Clientes">
             <End Role="Clientes" EntitySet="Clientes" />
+            <End Role="Logins" EntitySet="Logins" />
           </AssociationSet>
           <AssociationSet Name="FK_Empresas_Enderecos" Association="Self.FK_Empresas_Enderecos">
             <End Role="Enderecos" EntitySet="Enderecos" />
@@ -440,7 +440,6 @@
                 <ScalarProperty Name="Sobrenome" ColumnName="Sobrenome" />
                 <ScalarProperty Name="Telefone" ColumnName="Telefone" />
                 <ScalarProperty Name="EnderecoId" ColumnName="EnderecoId" />
-                <ScalarProperty Name="LoginId" ColumnName="LoginId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -476,6 +475,7 @@
                 <ScalarProperty Name="Email" ColumnName="Email" />
                 <ScalarProperty Name="Senha" ColumnName="Senha" />
                 <ScalarProperty Name="DataInclusao" ColumnName="DataInclusao" />
+                <ScalarProperty Name="ClienteId" ColumnName="ClienteId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
