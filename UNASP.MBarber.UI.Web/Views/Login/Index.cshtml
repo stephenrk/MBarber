@@ -12,7 +12,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>INSPINIA | Login</title>
+    <title>MBarber | Login</title>
 
     <link href="~/Content/css/bootstrap.min.css" rel="stylesheet">
     <link href="~/Content/font-awesome/css/font-awesome.css" rel="stylesheet">
@@ -28,15 +28,14 @@
         <div>
             <div>
 
-                <h1 class="logo-name">IN+</h1>
-
+                <img src="~/Content/img/logo_01.png" />
             </div>
-            <h3>Welcome to IN+</h3>
+            <h3>Bem Vindo ao MBarber</h3>
             <p>
-                Perfectly designed and precisely prepared admin theme with over 50 pages with extra new web app views.
+                
                 <!--Continually expanded and constantly improved Inspinia Admin Them (IN+)-->
             </p>
-            <p>Login in. To see it in action.</p>
+            <p>Login</p>
             @using (Html.BeginForm("Autenticar", "Login", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "m-t", role = "form" }))
             {
                 @Html.AntiForgeryToken()
@@ -58,7 +57,7 @@
                 <p class="text-muted text-center"><small>Ainda não tem uma conta?</small></p>
                 @Html.ActionLink("Registrar", "CriarAcesso", null, new { @class = "btn btn-sm btn-white btn-block" })
             }
-            <p class="m-t"> <small>Inspinia we app framework base on Bootstrap 3 &copy; 2014</small> </p>
+            <p class="m-t"> <small>MBarber &copy; 2018</small> </p>
         </div>
     </div>
 
