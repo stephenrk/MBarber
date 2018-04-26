@@ -10,6 +10,7 @@
 
 	<link href="~/Content/css/animate.css" rel="stylesheet" />
 	<link href="~/Content/css/style.css" rel="stylesheet" />
+	@RenderSection("Styles", false)
 </head>
 <body class="fixed-sidebar fixed-nav">
 
@@ -150,8 +151,6 @@
 	</script>
 
 	@RenderSection("Scripts", false)
-
-	<block layout:fragment="scripts"></block>
 
 </body>
 </html>
