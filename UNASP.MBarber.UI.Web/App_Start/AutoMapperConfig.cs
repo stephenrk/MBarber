@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
 using UNASP.MBarber.DataAccess;
-using UNASP.MBarber.DataTransferObject;
+using UNASP.MBarber.UI.Web.ViewModels;
 
 namespace UNASP.MBarber.UI.Web.App_Start
 {
@@ -11,7 +11,7 @@ namespace UNASP.MBarber.UI.Web.App_Start
         {
             // Inicialização do Mapper de Login
             Mapper.Initialize(cfg => {
-                cfg.CreateMap<Login, LoginDTO>().ForMember(x => x.Clientes, opt => opt.Ignore());
+                cfg.CreateMap<Login, LoginModel>().ForMember(x => x.Cliente, y => y.Ignore());
             });
         }
     }

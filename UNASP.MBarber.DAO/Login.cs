@@ -14,18 +14,12 @@ namespace UNASP.MBarber.DataAccess
     
     public partial class Login
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Login()
-        {
-            this.Clientes = new HashSet<Cliente>();
-        }
-    
         public System.Guid Id { get; set; }
         public string Email { get; set; }
         public string Senha { get; set; }
         public System.DateTime DataInclusao { get; set; }
+        public Nullable<System.Guid> ClienteId { get; set; }
     
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Cliente> Clientes { get; set; }
+        public virtual Cliente Cliente { get; set; }
     }
 }

@@ -1,9 +1,7 @@
 ﻿using AutoMapper;
-using System;
 using System.Web.Mvc;
 using UNASP.MBarber.Common;
 using UNASP.MBarber.DataAccess;
-using UNASP.MBarber.DataTransferObject;
 using UNASP.MBarber.Repository;
 using UNASP.MBarber.UI.Web.Filters;
 using UNASP.MBarber.UI.Web.ViewModels;
@@ -41,7 +39,7 @@ namespace UNASP.MBarber.UI.Web.Controllers
 
                 // Mapper serve para fazer a ponte das propriedades do DTO para as propriedades do dominio que representa o BD
                 // Aqui chamamos a lógica de autenticação e retornamos o usuário a ser logado
-                var validarAcesso = Mapper.Map<Login, LoginDTO>(loginRepository.AutenticarAcesso(email, senhaCripto));
+                var validarAcesso = Mapper.Map<Login, LoginModel>(loginRepository.AutenticarAcesso(email, senhaCripto));
 
                 // Se não achar o usuário, devolve erro
                 // Se achar, adiciona ele na session e cria o cookie
@@ -84,40 +82,29 @@ namespace UNASP.MBarber.UI.Web.Controllers
         [Route("novo-acesso")]
         [ClaimsAuthorize("CriarAcesso", "CA")]
         [ValidateAntiForgeryToken]
-        public ActionResult CriarAcesso(RegisterViewModel registro)
+        public ActionResult CriarAcesso(LoginModel dadosRegistro)
         {
             if (ModelState.IsValid)
             {
-                var verificarExistenciaEmail = loginRepository.BuscarPorEmail(registro.Login.Email);
+                var verificarExistenciaEmail = loginRepository.BuscarPorEmail(dadosRegistro.Email);
 
-                if (verificarExistenciaEmail == null)
+                if (verificarExistenciaEmail != null)
                 {
                     ModelState.AddModelError("login.invalido", "Esse e-mail já está sendo utilizado, por favor, utilize um e-mail alternativo");
-                    return View(registro);
+                    return View(dadosRegistro);
                 }
                 else
                 {
-                    var loginDomain = new LoginDTO
-                    {
-                        Email = registro.Login.Email,
-                        Senha = Criptografia.CriptografaMd5(registro.Login.Senha),
-                        DataInclusao = DateTime.Now,
-                        Clientes = new ClienteDTO
-                        {
-                            Nome = registro.Nome,
-                            
-                        }
-                    };
-
+                    var registroDominio = Mapper.Map<LoginModel, Login>(dadosRegistro);
                     
+                    loginRepository.Inserir(registroDominio);
 
-                    //loginRepository.Inserir(loginDomain);
                     return RedirectToAction("Index");
                 }
             }
             else
             {
-                return View(registro);
+                return View(dadosRegistro);
             }
         }
 

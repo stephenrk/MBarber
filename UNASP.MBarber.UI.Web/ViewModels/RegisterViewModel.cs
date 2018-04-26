@@ -4,6 +4,11 @@ namespace UNASP.MBarber.UI.Web.ViewModels
 {
     public class RegisterViewModel
     {
+        public RegisterViewModel()
+        {
+            this.Id = new Guid();
+        }
+
         public Guid Id { get; set; }
 
         public string Nome { get; set; }

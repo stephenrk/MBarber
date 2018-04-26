@@ -13,5 +13,7 @@ namespace UNASP.MBarber.UI.Web.ViewModels
         [DataType(DataType.Password)]
         [Display(Name = "Senha")]
         public string Senha { get; set; }
+
+        public UsuarioViewModel Usuario { get; set; }
     }
 }
