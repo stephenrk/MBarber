@@ -64,7 +64,7 @@
     <Compile Include="Agendamento.cs">
       <DependentUpon>AcessaDados.tt</DependentUpon>
     </Compile>
-    <Compile Include="Avaliaco.cs">
+    <Compile Include="Avaliacao.cs">
       <DependentUpon>AcessaDados.tt</DependentUpon>
     </Compile>
     <Compile Include="Cliente.cs">

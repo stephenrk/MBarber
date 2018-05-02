@@ -26,7 +26,7 @@ namespace UNASP.MBarber.DataAccess
         }
     
         public virtual DbSet<Agendamento> Agendamentos { get; set; }
-        public virtual DbSet<Avaliaco> Avaliacoes { get; set; }
+        public virtual DbSet<Avaliacao> Avaliacaos { get; set; }
         public virtual DbSet<Cliente> Clientes { get; set; }
         public virtual DbSet<Empresa> Empresas { get; set; }
         public virtual DbSet<Endereco> Enderecos { get; set; }

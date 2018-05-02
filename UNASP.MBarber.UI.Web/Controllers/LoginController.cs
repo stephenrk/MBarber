@@ -4,7 +4,7 @@ using UNASP.MBarber.Common;
 using UNASP.MBarber.DataAccess;
 using UNASP.MBarber.Repository;
 using UNASP.MBarber.UI.Web.Filters;
-using UNASP.MBarber.UI.Web.ViewModels;
+using UNASP.MBarber.UI.Web.Models;
 
 namespace UNASP.MBarber.UI.Web.Controllers
 {

@@ -18,7 +18,6 @@ namespace UNASP.MBarber.DataAccess
         public Cliente()
         {
             this.Agendamentos = new HashSet<Agendamento>();
-            this.Logins = new HashSet<Login>();
         }
     
         public System.Guid Id { get; set; }
@@ -26,12 +25,10 @@ namespace UNASP.MBarber.DataAccess
         public string Nome { get; set; }
         public string Sobrenome { get; set; }
         public string Telefone { get; set; }
-        public int EnderecoId { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Agendamento> Agendamentos { get; set; }
         public virtual Endereco Endereco { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Login> Logins { get; set; }
+        public virtual Login Login { get; set; }
     }
 }

@@ -24,7 +24,6 @@ namespace UNASP.MBarber.DataAccess
         public string Cnpj { get; set; }
         public string Nome { get; set; }
         public string NomeReduzido { get; set; }
-        public int EnderecoId { get; set; }
     
         public virtual Endereco Endereco { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

@@ -1,6 +1,6 @@
 using System;
 
-namespace UNASP.MBarber.UI.Web.ViewModels
+namespace UNASP.MBarber.UI.Web.Models
 {
     public class LoginModel
     {
@@ -14,6 +14,6 @@ namespace UNASP.MBarber.UI.Web.ViewModels
         public string Senha { get; set; }
         public DateTime DataInclusao { get; set; }
     
-        public ClienteModel Cliente { get; set; }
+        //public ClienteModel Cliente { get; set; }
     }
 }

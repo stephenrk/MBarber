@@ -18,7 +18,6 @@ namespace UNASP.MBarber.DataAccess
         public string Email { get; set; }
         public string Senha { get; set; }
         public System.DateTime DataInclusao { get; set; }
-        public Nullable<System.Guid> ClienteId { get; set; }
     
         public virtual Cliente Cliente { get; set; }
     }

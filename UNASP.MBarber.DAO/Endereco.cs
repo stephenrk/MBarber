@@ -14,13 +14,6 @@ namespace UNASP.MBarber.DataAccess
     
     public partial class Endereco
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Endereco()
-        {
-            this.Clientes = new HashSet<Cliente>();
-            this.Empresas = new HashSet<Empresa>();
-        }
-    
         public int Id { get; set; }
         public string Cep { get; set; }
         public string Logradouro { get; set; }
@@ -30,9 +23,7 @@ namespace UNASP.MBarber.DataAccess
         public string Cidade { get; set; }
         public string Estado { get; set; }
     
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Cliente> Clientes { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Empresa> Empresas { get; set; }
+        public virtual Cliente Cliente { get; set; }
+        public virtual Empresa Empresa { get; set; }
     }
 }

@@ -14,20 +14,11 @@ namespace UNASP.MBarber.DataAccess
     
     public partial class Servico
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Servico()
-        {
-            this.Avaliacoes = new HashSet<Avaliaco>();
-        }
-    
         public System.Guid Id { get; set; }
-        public int AgendamentoId { get; set; }
-        public System.Guid EmpresaId { get; set; }
         public decimal Valor { get; set; }
     
         public virtual Agendamento Agendamento { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Avaliaco> Avaliacoes { get; set; }
+        public virtual Avaliacao Avaliacao { get; set; }
         public virtual Empresa Empresa { get; set; }
     }
 }

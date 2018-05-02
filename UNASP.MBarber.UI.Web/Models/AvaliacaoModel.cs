@@ -1,6 +1,6 @@
 using System;
 
-namespace UNASP.MBarber.UI.Web.ViewModels
+namespace UNASP.MBarber.UI.Web.Models
 {
     public class AvaliacaoModel
     {

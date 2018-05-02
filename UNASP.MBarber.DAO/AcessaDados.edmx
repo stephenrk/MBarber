@@ -207,18 +207,16 @@
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="DataHora" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="ClienteId" Type="Guid" Nullable="false" />
           <NavigationProperty Name="Cliente" Relationship="Self.FK_Agendamentos_Clientes" FromRole="Agendamentos" ToRole="Clientes" />
           <NavigationProperty Name="Servicos" Relationship="Self.FK_Servicos_Agendamentos" FromRole="Agendamentos" ToRole="Servicos" />
         </EntityType>
-        <EntityType Name="Avaliaco">
+        <EntityType Name="Avaliacao">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="Guid" Nullable="false" />
           <Property Name="Nota" Type="String" MaxLength="5" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="Descricao" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <Property Name="ServicoId" Type="Guid" Nullable="false" />
           <NavigationProperty Name="Servico" Relationship="Self.FK_Avaliacoes_Servicos" FromRole="Avaliacoes" ToRole="Servicos" />
         </EntityType>
         <EntityType Name="Cliente">
@@ -230,10 +228,9 @@
           <Property Name="Nome" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="Sobrenome" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="Telefone" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="EnderecoId" Type="Int32" Nullable="false" />
           <NavigationProperty Name="Agendamentos" Relationship="Self.FK_Agendamentos_Clientes" FromRole="Clientes" ToRole="Agendamentos" />
           <NavigationProperty Name="Endereco" Relationship="Self.FK_Clientes_Enderecos" FromRole="Clientes" ToRole="Enderecos" />
-          <NavigationProperty Name="Logins" Relationship="Self.FK_Logins_Clientes" FromRole="Clientes" ToRole="Logins" />
+          <NavigationProperty Name="Login" Relationship="Self.FK_Logins_Clientes" FromRole="Clientes" ToRole="Logins" />
         </EntityType>
         <EntityType Name="Empresa">
           <Key>
@@ -243,8 +240,7 @@
           <Property Name="Cnpj" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="Nome" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="NomeReduzido" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="EnderecoId" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="Endereco" Relationship="Self.FK_Empresas_Enderecos" FromRole="Empresas" ToRole="Enderecos" />
+          <NavigationProperty Name="Endereco" Relationship="Self.FK_Empresas_Enderecos" FromRole="Empresa" ToRole="Enderecos" />
           <NavigationProperty Name="Servicos" Relationship="Self.FK_Servicos_Empresas" FromRole="Empresas" ToRole="Servicos" />
         </EntityType>
         <EntityType Name="Endereco">
@@ -259,8 +255,8 @@
           <Property Name="Bairro" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="Cidade" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="Estado" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-          <NavigationProperty Name="Clientes" Relationship="Self.FK_Clientes_Enderecos" FromRole="Enderecos" ToRole="Clientes" />
-          <NavigationProperty Name="Empresas" Relationship="Self.FK_Empresas_Enderecos" FromRole="Enderecos" ToRole="Empresas" />
+          <NavigationProperty Name="Cliente" Relationship="Self.FK_Clientes_Enderecos" FromRole="Enderecos" ToRole="Clientes" />
+          <NavigationProperty Name="Empresa" Relationship="Self.FK_Empresas_Enderecos" FromRole="Enderecos" ToRole="Empresa" />
         </EntityType>
         <EntityType Name="Login">
           <Key>
@@ -270,7 +266,6 @@
           <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="Senha" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="DataInclusao" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="ClienteId" Type="Guid" />
           <NavigationProperty Name="Cliente" Relationship="Self.FK_Logins_Clientes" FromRole="Logins" ToRole="Clientes" />
         </EntityType>
         <EntityType Name="Servico">
@@ -278,100 +273,42 @@
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="Guid" Nullable="false" />
-          <Property Name="AgendamentoId" Type="Int32" Nullable="false" />
-          <Property Name="EmpresaId" Type="Guid" Nullable="false" />
           <Property Name="Valor" Type="Decimal" Precision="10" Scale="4" Nullable="false" />
           <NavigationProperty Name="Agendamento" Relationship="Self.FK_Servicos_Agendamentos" FromRole="Servicos" ToRole="Agendamentos" />
-          <NavigationProperty Name="Avaliacoes" Relationship="Self.FK_Avaliacoes_Servicos" FromRole="Servicos" ToRole="Avaliacoes" />
+          <NavigationProperty Name="Avaliacao" Relationship="Self.FK_Avaliacoes_Servicos" FromRole="Servicos" ToRole="Avaliacoes" />
           <NavigationProperty Name="Empresa" Relationship="Self.FK_Servicos_Empresas" FromRole="Servicos" ToRole="Empresas" />
         </EntityType>
         <Association Name="FK_Agendamentos_Clientes">
           <End Role="Clientes" Type="Self.Cliente" Multiplicity="1" />
           <End Role="Agendamentos" Type="Self.Agendamento" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Clientes">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="Agendamentos">
-              <PropertyRef Name="ClienteId" />
-            </Dependent>
-          </ReferentialConstraint>
         </Association>
         <Association Name="FK_Servicos_Agendamentos">
           <End Role="Agendamentos" Type="Self.Agendamento" Multiplicity="1" />
           <End Role="Servicos" Type="Self.Servico" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Agendamentos">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="Servicos">
-              <PropertyRef Name="AgendamentoId" />
-            </Dependent>
-          </ReferentialConstraint>
         </Association>
         <Association Name="FK_Avaliacoes_Servicos">
           <End Role="Servicos" Type="Self.Servico" Multiplicity="1" />
-          <End Role="Avaliacoes" Type="Self.Avaliaco" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Servicos">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="Avaliacoes">
-              <PropertyRef Name="ServicoId" />
-            </Dependent>
-          </ReferentialConstraint>
+          <End Role="Avaliacoes" Type="MbarberModel.Avaliacao" Multiplicity="1" />
         </Association>
         <Association Name="FK_Clientes_Enderecos">
           <End Role="Enderecos" Type="Self.Endereco" Multiplicity="1" />
-          <End Role="Clientes" Type="Self.Cliente" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Enderecos">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="Clientes">
-              <PropertyRef Name="EnderecoId" />
-            </Dependent>
-          </ReferentialConstraint>
+          <End Role="Clientes" Type="Self.Cliente" Multiplicity="1" />
         </Association>
         <Association Name="FK_Logins_Clientes">
-          <End Role="Clientes" Type="Self.Cliente" Multiplicity="0..1" />
-          <End Role="Logins" Type="Self.Login" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Clientes">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="Logins">
-              <PropertyRef Name="ClienteId" />
-            </Dependent>
-          </ReferentialConstraint>
+          <End Role="Clientes" Type="Self.Cliente" Multiplicity="1" />
+          <End Role="Logins" Type="Self.Login" Multiplicity="1" />
         </Association>
         <Association Name="FK_Empresas_Enderecos">
           <End Role="Enderecos" Type="Self.Endereco" Multiplicity="1" />
-          <End Role="Empresas" Type="Self.Empresa" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Enderecos">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="Empresas">
-              <PropertyRef Name="EnderecoId" />
-            </Dependent>
-          </ReferentialConstraint>
+          <End Role="Empresa" Type="Self.Empresa" Multiplicity="1" />
         </Association>
         <Association Name="FK_Servicos_Empresas">
           <End Role="Empresas" Type="Self.Empresa" Multiplicity="1" />
           <End Role="Servicos" Type="Self.Servico" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Empresas">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="Servicos">
-              <PropertyRef Name="EmpresaId" />
-            </Dependent>
-          </ReferentialConstraint>
         </Association>
         <EntityContainer Name="MbarberEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Agendamentos" EntityType="Self.Agendamento" />
-          <EntitySet Name="Avaliacoes" EntityType="Self.Avaliaco" />
+          <EntitySet Name="Avaliacaos" EntityType="MbarberModel.Avaliacao" />
           <EntitySet Name="Clientes" EntityType="Self.Cliente" />
           <EntitySet Name="Empresas" EntityType="Self.Empresa" />
           <EntitySet Name="Enderecos" EntityType="Self.Endereco" />
@@ -387,7 +324,7 @@
           </AssociationSet>
           <AssociationSet Name="FK_Avaliacoes_Servicos" Association="Self.FK_Avaliacoes_Servicos">
             <End Role="Servicos" EntitySet="Servicos" />
-            <End Role="Avaliacoes" EntitySet="Avaliacoes" />
+            <End Role="Avaliacoes" EntitySet="Avaliacaos" />
           </AssociationSet>
           <AssociationSet Name="FK_Clientes_Enderecos" Association="Self.FK_Clientes_Enderecos">
             <End Role="Enderecos" EntitySet="Enderecos" />
@@ -399,7 +336,7 @@
           </AssociationSet>
           <AssociationSet Name="FK_Empresas_Enderecos" Association="Self.FK_Empresas_Enderecos">
             <End Role="Enderecos" EntitySet="Enderecos" />
-            <End Role="Empresas" EntitySet="Empresas" />
+            <End Role="Empresa" EntitySet="Empresas" />
           </AssociationSet>
           <AssociationSet Name="FK_Servicos_Empresas" Association="Self.FK_Servicos_Empresas">
             <End Role="Empresas" EntitySet="Empresas" />
@@ -417,17 +354,15 @@
               <MappingFragment StoreEntitySet="Agendamentos">
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="DataHora" ColumnName="DataHora" />
-                <ScalarProperty Name="ClienteId" ColumnName="ClienteId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Avaliacoes">
-            <EntityTypeMapping TypeName="MbarberModel.Avaliaco">
+          <EntitySetMapping Name="Avaliacaos">
+            <EntityTypeMapping TypeName="MbarberModel.Avaliacao">
               <MappingFragment StoreEntitySet="Avaliacoes">
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="Nota" ColumnName="Nota" />
                 <ScalarProperty Name="Descricao" ColumnName="Descricao" />
-                <ScalarProperty Name="ServicoId" ColumnName="ServicoId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -439,7 +374,6 @@
                 <ScalarProperty Name="Nome" ColumnName="Nome" />
                 <ScalarProperty Name="Sobrenome" ColumnName="Sobrenome" />
                 <ScalarProperty Name="Telefone" ColumnName="Telefone" />
-                <ScalarProperty Name="EnderecoId" ColumnName="EnderecoId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -450,7 +384,6 @@
                 <ScalarProperty Name="Cnpj" ColumnName="Cnpj" />
                 <ScalarProperty Name="Nome" ColumnName="Nome" />
                 <ScalarProperty Name="NomeReduzido" ColumnName="NomeReduzido" />
-                <ScalarProperty Name="EnderecoId" ColumnName="EnderecoId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -475,7 +408,6 @@
                 <ScalarProperty Name="Email" ColumnName="Email" />
                 <ScalarProperty Name="Senha" ColumnName="Senha" />
                 <ScalarProperty Name="DataInclusao" ColumnName="DataInclusao" />
-                <ScalarProperty Name="ClienteId" ColumnName="ClienteId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -483,12 +415,66 @@
             <EntityTypeMapping TypeName="MbarberModel.Servico">
               <MappingFragment StoreEntitySet="Servicos">
                 <ScalarProperty Name="Id" ColumnName="Id" />
-                <ScalarProperty Name="AgendamentoId" ColumnName="AgendamentoId" />
-                <ScalarProperty Name="EmpresaId" ColumnName="EmpresaId" />
                 <ScalarProperty Name="Valor" ColumnName="Valor" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <AssociationSetMapping Name="FK_Agendamentos_Clientes" TypeName="MbarberModel.FK_Agendamentos_Clientes" StoreEntitySet="Agendamentos">
+            <EndProperty Name="Clientes">
+              <ScalarProperty Name="Id" ColumnName="ClienteId" />
+            </EndProperty>
+            <EndProperty Name="Agendamentos">
+              <ScalarProperty Name="Id" ColumnName="Id" />
+            </EndProperty>
+          </AssociationSetMapping>
+          <AssociationSetMapping Name="FK_Servicos_Agendamentos" TypeName="MbarberModel.FK_Servicos_Agendamentos" StoreEntitySet="Servicos">
+            <EndProperty Name="Agendamentos">
+              <ScalarProperty Name="Id" ColumnName="AgendamentoId" />
+            </EndProperty>
+            <EndProperty Name="Servicos">
+              <ScalarProperty Name="Id" ColumnName="Id" />
+            </EndProperty>
+          </AssociationSetMapping>
+          <AssociationSetMapping Name="FK_Avaliacoes_Servicos" TypeName="MbarberModel.FK_Avaliacoes_Servicos" StoreEntitySet="Avaliacoes">
+            <EndProperty Name="Servicos">
+              <ScalarProperty Name="Id" ColumnName="ServicoId" />
+            </EndProperty>
+            <EndProperty Name="Avaliacoes">
+              <ScalarProperty Name="Id" ColumnName="Id" />
+            </EndProperty>
+          </AssociationSetMapping>
+          <AssociationSetMapping Name="FK_Clientes_Enderecos" TypeName="MbarberModel.FK_Clientes_Enderecos" StoreEntitySet="Clientes">
+            <EndProperty Name="Enderecos">
+              <ScalarProperty Name="Id" ColumnName="EnderecoId" />
+            </EndProperty>
+            <EndProperty Name="Clientes">
+              <ScalarProperty Name="Id" ColumnName="Id" />
+            </EndProperty>
+          </AssociationSetMapping>
+          <AssociationSetMapping Name="FK_Logins_Clientes" TypeName="MbarberModel.FK_Logins_Clientes" StoreEntitySet="Logins">
+            <EndProperty Name="Clientes">
+              <ScalarProperty Name="Id" ColumnName="ClienteId" />
+            </EndProperty>
+            <EndProperty Name="Logins">
+              <ScalarProperty Name="Id" ColumnName="Id" />
+            </EndProperty>
+          </AssociationSetMapping>
+          <AssociationSetMapping Name="FK_Empresas_Enderecos" TypeName="MbarberModel.FK_Empresas_Enderecos" StoreEntitySet="Empresas">
+            <EndProperty Name="Enderecos">
+              <ScalarProperty Name="Id" ColumnName="EnderecoId" />
+            </EndProperty>
+            <EndProperty Name="Empresa">
+              <ScalarProperty Name="Id" ColumnName="Id" />
+            </EndProperty>
+          </AssociationSetMapping>
+          <AssociationSetMapping Name="FK_Servicos_Empresas" TypeName="MbarberModel.FK_Servicos_Empresas" StoreEntitySet="Servicos">
+            <EndProperty Name="Empresas">
+              <ScalarProperty Name="Id" ColumnName="EmpresaId" />
+            </EndProperty>
+            <EndProperty Name="Servicos">
+              <ScalarProperty Name="Id" ColumnName="Id" />
+            </EndProperty>
+          </AssociationSetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
@@ -504,7 +490,7 @@
       <DesignerInfoPropertySet>
         <DesignerProperty Name="ValidateOnBuild" Value="true" />
         <DesignerProperty Name="EnablePluralization" Value="true" />
-        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="false" />
         <DesignerProperty Name="UseLegacyProvider" Value="false" />
         <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
       </DesignerInfoPropertySet>

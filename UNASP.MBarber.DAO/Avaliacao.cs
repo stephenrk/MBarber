@@ -12,12 +12,11 @@ namespace UNASP.MBarber.DataAccess
     using System;
     using System.Collections.Generic;
     
-    public partial class Avaliaco
+    public partial class Avaliacao
     {
         public System.Guid Id { get; set; }
         public string Nota { get; set; }
         public string Descricao { get; set; }
-        public System.Guid ServicoId { get; set; }
     
         public virtual Servico Servico { get; set; }
     }

@@ -1,5 +1,5 @@
 ﻿using System.Web;
-using UNASP.MBarber.UI.Web.ViewModels;
+using UNASP.MBarber.UI.Web.Models;
 
 namespace UNASP.MBarber.UI.Web.Filters
 {
