@@ -22,6 +22,7 @@
     <link href="~/Content/css/animate.css" rel="stylesheet">
     <link href="~/Content/css/style.css" rel="stylesheet">
 
+
 </head>
 
 <body class="gray-bg">
@@ -89,26 +90,26 @@
                     <div class="row">
                         <div class="col-md-6">
                             <div class="form-group">
-                                @Html.TextBoxFor(x => x.Endereco.Cep, new { @class = "form-control", placeholder = "CEP", data_mask = "99999-999" })
+                                @Html.TextBoxFor(x => x.Endereco.Cep, new { @class = "form-control", placeholder = "CEP", data_mask = "99999-999", id = "cep", onblur = "pesquisacep(this.value); " })
                             </div>
                         </div>
 
                         <div class="col-md-6">
                             <div class="form-group">
-                                @Html.TextBoxFor(x => x.Endereco.Logradouro, new { @class = "form-control", placeholder = "Rua" })
+                                @Html.TextBoxFor(x => x.Endereco.Logradouro, new { @class = "form-control", placeholder = "Rua", id = "rua" })
                             </div>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-md-6">
                             <div class="form-group">
-                                @Html.TextBoxFor(x => x.Endereco.Bairro, new { @class = "form-control", placeholder = "Bairro" })
+                                @Html.TextBoxFor(x => x.Endereco.Bairro, new { @class = "form-control", placeholder = "Bairro", id = "bairro" })
                             </div>
                         </div>
 
                         <div class="col-md-6">
                             <div class="form-group">
-                                @Html.TextBoxFor(x => x.Endereco.Numero, new { @class = "form-control", placeholder = "Numero" })
+                                @Html.TextBoxFor(x => x.Endereco.Numero, new { @class = "form-control", placeholder = "Numero", id = "numero" })
                             </div>
                         </div>
                     </div>
@@ -121,14 +122,14 @@
 
                         <div class="col-md-6">
                             <div class="form-group">
-                                @Html.TextBoxFor(x => x.Endereco.Cidade, new { @class = "form-control", placeholder = "Cidade" })
+                                @Html.TextBoxFor(x => x.Endereco.Cidade, new { @class = "form-control", placeholder = "Cidade", id = "cidade" })
                             </div>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-md-6">
                             <div class="form-group">
-                                @Html.TextBoxFor(x => x.Endereco.Estado, new { @class = "form-control", placeholder = "Estado" })
+                                @Html.TextBoxFor(x => x.Endereco.Estado, new { @class = "form-control", placeholder = "Estado", id = "uf" })
                             </div>
                         </div>
                     </div>
@@ -146,6 +147,8 @@
     <script src="~/Content/js/jquery-3.1.1.min.js"></script>
     <script src="~/Content/js/bootstrap.min.js"></script>
     <script src="~/Content/js/plugins/jasny/jasny-bootstrap.min.js"></script>
+    <script src="~/Scripts/cep.js"></script>
+
 </body>
 
 
