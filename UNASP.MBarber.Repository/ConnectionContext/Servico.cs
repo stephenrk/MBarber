@@ -15,10 +15,6 @@ namespace UNASP.MBarber.Repository.ConnectionContext
 
         public Guid Id { get; set; }
 
-        public int AgendamentoId { get; set; }
-
-        public Guid EmpresaId { get; set; }
-
         [Column(TypeName = "smallmoney")]
         public decimal Valor { get; set; }
 

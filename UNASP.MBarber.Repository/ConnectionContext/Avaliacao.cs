@@ -13,8 +13,6 @@ namespace UNASP.MBarber.Repository.ConnectionContext
 
         public string Descricao { get; set; }
 
-        public Guid ServicoId { get; set; }
-
         public virtual Servico Servico { get; set; }
     }
 }

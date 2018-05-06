@@ -17,8 +17,6 @@ namespace UNASP.MBarber.Repository.ConnectionContext
 
         public DateTime DataHora { get; set; }
 
-        public Guid ClienteId { get; set; }
-
         public virtual Cliente Cliente { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

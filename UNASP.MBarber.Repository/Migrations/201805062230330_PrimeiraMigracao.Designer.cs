@@ -6,14 +6,14 @@ namespace UNASP.MBarber.DataAccess.Migrations
     using System.Data.Entity.Migrations.Infrastructure;
     using System.Resources;
     
-    [GeneratedCode("EntityFramework.Migrations", "6.1.3-40302")]
-    public sealed partial class Primeiramigracao : IMigrationMetadata
+    [GeneratedCode("EntityFramework.Migrations", "6.2.0-61023")]
+    public sealed partial class PrimeiraMigracao : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(Primeiramigracao));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(PrimeiraMigracao));
         
         string IMigrationMetadata.Id
         {
-            get { return "201805061926107_Primeira migracao"; }
+            get { return "201805062230330_PrimeiraMigracao"; }
         }
         
         string IMigrationMetadata.Source

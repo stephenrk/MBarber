@@ -30,8 +30,6 @@ namespace UNASP.MBarber.Repository.ConnectionContext
         [StringLength(50)]
         public string Telefone { get; set; }
 
-        public int EnderecoId { get; set; }
-
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Agendamento> Agendamentos { get; set; }
 

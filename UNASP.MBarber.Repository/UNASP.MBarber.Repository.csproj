@@ -56,11 +56,11 @@
     <Compile Include="ConnectionContext\Endereco.cs" />
     <Compile Include="ConnectionContext\Login.cs" />
     <Compile Include="ConnectionContext\Context\MBarberContext.cs" />
-    <Compile Include="ConnectionContext\Migrations\201805061926107_Primeira migracao.cs" />
-    <Compile Include="ConnectionContext\Migrations\201805061926107_Primeira migracao.Designer.cs">
-      <DependentUpon>201805061926107_Primeira migracao.cs</DependentUpon>
+    <Compile Include="Migrations\201805062230330_PrimeiraMigracao.cs" />
+    <Compile Include="Migrations\201805062230330_PrimeiraMigracao.Designer.cs">
+      <DependentUpon>201805062230330_PrimeiraMigracao.cs</DependentUpon>
     </Compile>
-    <Compile Include="ConnectionContext\Migrations\Configuration.cs" />
+    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="ConnectionContext\Servico.cs" />
     <Compile Include="LoginRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -70,8 +70,8 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="ConnectionContext\Migrations\201805061926107_Primeira migracao.resx">
-      <DependentUpon>201805061926107_Primeira migracao.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201805062230330_PrimeiraMigracao.resx">
+      <DependentUpon>201805062230330_PrimeiraMigracao.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
