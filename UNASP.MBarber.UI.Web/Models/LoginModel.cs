@@ -13,7 +13,6 @@ namespace UNASP.MBarber.UI.Web.Models
         public string Email { get; set; }
         public string Senha { get; set; }
         public DateTime DataInclusao { get; set; }
-    
-        //public ClienteModel Cliente { get; set; }
+        public string Tipo { get; set; }
     }
 }

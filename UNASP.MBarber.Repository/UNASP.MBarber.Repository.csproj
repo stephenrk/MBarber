@@ -30,6 +30,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Dapper, Version=1.50.4.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Dapper.1.50.4\lib\net451\Dapper.dll</HintPath>
+    </Reference>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
     </Reference>
@@ -41,24 +44,35 @@
     <Reference Include="System.Core" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ClienteRepository.cs" />
+    <Compile Include="ConnectionContext\Agendamento.cs" />
+    <Compile Include="ConnectionContext\Avaliacao.cs" />
+    <Compile Include="ConnectionContext\Cliente.cs" />
+    <Compile Include="ConnectionContext\Empresa.cs" />
+    <Compile Include="ConnectionContext\Endereco.cs" />
+    <Compile Include="ConnectionContext\Login.cs" />
+    <Compile Include="ConnectionContext\Context\MBarberContext.cs" />
+    <Compile Include="ConnectionContext\Migrations\201805061926107_Primeira migracao.cs" />
+    <Compile Include="ConnectionContext\Migrations\201805061926107_Primeira migracao.Designer.cs">
+      <DependentUpon>201805061926107_Primeira migracao.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ConnectionContext\Migrations\Configuration.cs" />
+    <Compile Include="ConnectionContext\Servico.cs" />
     <Compile Include="LoginRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\UNASP.MBarber.DAO\UNASP.MBarber.DataAccess.csproj">
-      <Project>{3654f7bd-50b2-40bb-b511-cc0a6901da7a}</Project>
-      <Name>UNASP.MBarber.DataAccess</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\UNASP.MBarber.DataTransferObject\UNASP.MBarber.DataTransferObject.csproj">
-      <Project>{0c7df22a-e29d-49ac-b667-c33635a7a6e6}</Project>
-      <Name>UNASP.MBarber.DataTransferObject</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="ConnectionContext\Migrations\201805061926107_Primeira migracao.resx">
+      <DependentUpon>201805061926107_Primeira migracao.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

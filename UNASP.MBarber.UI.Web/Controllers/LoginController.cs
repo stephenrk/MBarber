@@ -1,24 +1,26 @@
 ﻿using AutoMapper;
 using System.Web.Mvc;
 using UNASP.MBarber.Common;
-using UNASP.MBarber.DataAccess;
 using UNASP.MBarber.Repository;
+using UNASP.MBarber.Repository.ConnectionContext;
 using UNASP.MBarber.UI.Web.Filters;
 using UNASP.MBarber.UI.Web.Models;
 
 namespace UNASP.MBarber.UI.Web.Controllers
 {
-    [RoutePrefix("acesso-ao-sistema")]
+    //[RoutePrefix("acesso-ao-sistema")]
     public class LoginController : Controller
     {
 
         #region Repository
 
         private LoginRepository loginRepository;
+        private ClienteRepository clienteRepository;
 
         public LoginController()
         {
             this.loginRepository = new LoginRepository();
+            this.clienteRepository = new ClienteRepository();
         }
 
         #endregion
@@ -79,14 +81,14 @@ namespace UNASP.MBarber.UI.Web.Controllers
         }
 
         [HttpPost]
-        [Route("novo-acesso")]
+        //[Route("novo-acesso")]
         [ClaimsAuthorize("CriarAcesso", "CA")]
         [ValidateAntiForgeryToken]
-        public ActionResult CriarAcesso(LoginModel dadosRegistro)
+        public ActionResult CriarAcesso(ClienteModel dadosRegistro)
         {
             if (ModelState.IsValid)
             {
-                var verificarExistenciaEmail = loginRepository.BuscarPorEmail(dadosRegistro.Email);
+                var verificarExistenciaEmail = loginRepository.BuscarPorEmail(dadosRegistro.Login.Email);
 
                 if (verificarExistenciaEmail != null)
                 {
@@ -95,9 +97,9 @@ namespace UNASP.MBarber.UI.Web.Controllers
                 }
                 else
                 {
-                    var registroDominio = Mapper.Map<LoginModel, Login>(dadosRegistro);
+                    var registroDominio = Mapper.Map<ClienteModel, Cliente>(dadosRegistro);
                     
-                    loginRepository.Inserir(registroDominio);
+                    clienteRepository.Inserir(registroDominio);
 
                     return RedirectToAction("Index");
                 }

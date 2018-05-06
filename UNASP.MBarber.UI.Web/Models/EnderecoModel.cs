@@ -10,8 +10,5 @@ namespace UNASP.MBarber.UI.Web.Models
         public string Bairro { get; set; }
         public string Cidade { get; set; }
         public string Estado { get; set; }
-    
-        public ClienteModel Cliente { get; set; }
-        public EmpresaModel Empresa { get; set; }
     }
 }

@@ -3,7 +3,6 @@ using System.Collections.Generic;
 
 namespace UNASP.MBarber.UI.Web.Models
 {
-
     public class ClienteModel
     {
         public ClienteModel()
@@ -20,6 +19,6 @@ namespace UNASP.MBarber.UI.Web.Models
 
         public IList<AgendamentoModel> Agendamentos { get; set; }
         public EnderecoModel Endereco { get; set; }
-        public LoginModel Logins { get; set; }
+        public LoginModel Login { get; set; }
     }
 }

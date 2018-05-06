@@ -1,5 +1,5 @@
-﻿@using UNASP.MBarber.UI.Web.ViewModels
-@model LoginModel
+﻿@using UNASP.MBarber.UI.Web.Models
+@model ClienteModel
 @{
     ViewBag.Title = "Novo acesso";
     Layout = null;
@@ -17,7 +17,7 @@
 
     <link href="~/Content/css/bootstrap.min.css" rel="stylesheet">
     <link href="~/Content/font-awesome/css/font-awesome.css" rel="stylesheet">
-    <link href="css/plugins/iCheck/custom.css" rel="stylesheet">
+    <link href="~/Content/css/plugins/jasny/jasny-bootstrap.min.css" rel="stylesheet" />
 
     <link href="~/Content/css/animate.css" rel="stylesheet">
     <link href="~/Content/css/style.css" rel="stylesheet">
@@ -27,115 +27,125 @@
 <body class="gray-bg">
 
     <div class="middle-box text-center loginscreen animated fadeInDown">
-        <div>
-            <h3>Register to IN+</h3>
-            <p>Create account to see it in action.</p>
-
-            @using (Html.BeginForm("CriarAcesso", "Login", FormMethod.Post, new { @class = "m-t", role = "form" }))
-            {
-                @Html.AntiForgeryToken()
-            <div class="row">
-                <div class="col-md-6">
-                    <div class="form-group">
-                        @Html.TextBoxFor(x => x.Cliente.Nome, new { @class = "form-control", placeholder = "Nome" })
-                    </div>
-                </div>
-
-                <div class="col-md-6">
-                    <div class="form-group">
-                        @Html.TextBoxFor(x => x.Cliente.Sobrenome, new { @class = "form-control", placeholder = "Sobrenome" })
-                    </div>
-                </div>
-
-                <div class="col-md-6">
-                    <div class="form-group">
-                        @Html.TextBoxFor(x => x.Cliente.Telefone, new { @class = "form-control", placeholder = "Telefone" })
-                    </div>
-                </div>
-
-                <div class="col-md-6">
-                    <div class="form-group">
-                        @Html.TextBoxFor(x => x.Cliente.Cpf, new { @class = "form-control", placeholder = "CPF" })
-                    </div>
-                </div>
-
-                <div class="col-md-6">
-                    <div class="form-group">
-                        @Html.TextBoxFor(x => x.Email, new { @class = "form-control", placeholder = "Email" })
-                    </div>
-                </div>
-
-                <div class="col-md-6">
-                    <div class="form-group">
-                        @Html.TextBoxFor(x => x.Senha, new { @class = "form-control", placeholder = "Senha" })
-                    </div>
-                </div>
-
-                <div class="col-md-6">
-                    <div class="form-group">
-                        @Html.TextBoxFor(x => x.Cliente.Endereco.Cep, new { @class = "form-control", placeholder = "CEP" })
-                    </div>
-                </div>
-
-                <div class="col-md-6">
-                    <div class="form-group">
-                        @Html.TextBoxFor(x => x.Cliente.Endereco.Logradouro, new { @class = "form-control", placeholder = "Rua" })
-                    </div>
-                </div>
-
-                <div class="col-md-6">
-                    <div class="form-group">
-                        @Html.TextBoxFor(x => x.Cliente.Endereco.Bairro, new { @class = "form-control", placeholder = "Bairro" })
-                    </div>
-                </div>
-                
-                <div class="col-md-6">
-                    <div class="form-group">
-                        @Html.TextBoxFor(x => x.Cliente.Endereco.Numero, new { @class = "form-control", placeholder = "Numero" })
-                    </div>
-                </div>
-                
-                <div class="col-md-6">
-                    <div class="form-group">
-                        @Html.TextBoxFor(x => x.Cliente.Endereco.Complemento, new { @class = "form-control", placeholder = "Complemento" })
-                    </div>
-                </div>
-                
-                <div class="col-md-6">
-                    <div class="form-group">
-                        @Html.TextBoxFor(x => x.Cliente.Endereco.Cidade, new { @class = "form-control", placeholder = "Cidade" })
-                    </div>
-                </div>
-                
-                <div class="col-md-6">
-                    <div class="form-group">
-                        @Html.TextBoxFor(x => x.Cliente.Endereco.Estado, new { @class = "form-control", placeholder = "Estado" })
-                    </div>
-                </div>
+        <div class="ibox">
+            <div class="ibox-title">
+                <h3>Registre-se agora no MBarber!</h3>
+                <p>Preencha seus dados abaixo</p>
             </div>
-                <button type="submit" class="btn btn-primary block full-width m-b">Registrar</button>
+            <div class="ibox-content">
+                @using (Html.BeginForm("CriarAcesso", "Login", FormMethod.Post, new { @class = "m-t", role = "form" }))
+                {
+                    @Html.AntiForgeryToken()
+                    <p>Informações pessoais</p>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                @Html.TextBoxFor(x => x.Nome, new { @class = "form-control", placeholder = "Nome" })
+                            </div>
+                        </div>
 
-                <p class="text-muted text-center"><small>Já tem uma conta?</small></p>
-                @Html.ActionLink("Login", "Index", null, new { @class = "btn btn-sm btn-white btn-block" })
-            }
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                @Html.TextBoxFor(x => x.Sobrenome, new { @class = "form-control", placeholder = "Sobrenome" })
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
 
-            <p class="m-t"> <small>Inspinia we app framework base on Bootstrap 3 &copy; 2014</small> </p>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                @Html.TextBoxFor(x => x.Telefone, new { @class = "form-control", placeholder = "Telefone/Celular", data_mask = "(99) 99999-9999" })
+                            </div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                @Html.TextBoxFor(x => x.Cpf, new { @class = "form-control", placeholder = "CPF", data_mask = "999.999.999-99" })
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="hr-line-dashed"></div>
+
+                    <p>Informações de acesso</p>
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                @Html.TextBoxFor(x => x.Login.Email, new { @class = "form-control", placeholder = "Email" })
+                            </div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                @Html.TextBoxFor(x => x.Login.Senha, new { @class = "form-control", placeholder = "Senha" })
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="hr-line-dashed"></div>
+
+                    <p>Informações complementares</p>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                @Html.TextBoxFor(x => x.Endereco.Cep, new { @class = "form-control", placeholder = "CEP", data_mask = "99999-999" })
+                            </div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                @Html.TextBoxFor(x => x.Endereco.Logradouro, new { @class = "form-control", placeholder = "Rua" })
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                @Html.TextBoxFor(x => x.Endereco.Bairro, new { @class = "form-control", placeholder = "Bairro" })
+                            </div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                @Html.TextBoxFor(x => x.Endereco.Numero, new { @class = "form-control", placeholder = "Numero" })
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                @Html.TextBoxFor(x => x.Endereco.Complemento, new { @class = "form-control", placeholder = "Complemento" })
+                            </div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                @Html.TextBoxFor(x => x.Endereco.Cidade, new { @class = "form-control", placeholder = "Cidade" })
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                @Html.TextBoxFor(x => x.Endereco.Estado, new { @class = "form-control", placeholder = "Estado" })
+                            </div>
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-primary block full-width m-b">Registrar</button>
+
+                    <p class="text-muted text-center"><small>Já tem uma conta?</small></p>
+                    @Html.ActionLink("Login", "Index", null, new { @class = "btn btn-sm btn-white btn-block" })
+                }
+            </div>
+            <p class="m-t"> <small>MBarber &copy; 2018</small> </p>
         </div>
     </div>
 
     <!-- Mainly scripts -->
     <script src="~/Content/js/jquery-3.1.1.min.js"></script>
     <script src="~/Content/js/bootstrap.min.js"></script>
-    <!-- iCheck -->
-    <script src="~/Content/js/plugins/iCheck/icheck.min.js"></script>
-    <script>
-        $(document).ready(function () {
-            $('.i-checks').iCheck({
-                checkboxClass: 'icheckbox_square-green',
-                radioClass: 'iradio_square-green',
-            });
-        });
-    </script>
+    <script src="~/Content/js/plugins/jasny/jasny-bootstrap.min.js"></script>
 </body>
 
 
