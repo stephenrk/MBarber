@@ -97,6 +97,9 @@ namespace UNASP.MBarber.UI.Web.Controllers
                 }
                 else
                 {
+                    // Criptografa a senha inserida pelo usuário
+                    dadosRegistro.Login.Senha = Criptografia.CriptografaMd5(dadosRegistro.Login.Senha);
+
                     var registroDominio = Mapper.Map<ClienteModel, Cliente>(dadosRegistro);
                     
                     clienteRepository.Inserir(registroDominio);
