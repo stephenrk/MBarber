@@ -1,6 +1,7 @@
 namespace UNASP.MBarber.DataAccess.Migrations
 {
     using System.Data.Entity.Migrations;
+    using UNASP.MBarber.Repository.ConnectionContext;
     using UNASP.MBarber.Repository.ConnectionContext.Context;
 
     internal sealed class Configuration : DbMigrationsConfiguration<MBarberContext>
@@ -24,6 +25,12 @@ namespace UNASP.MBarber.DataAccess.Migrations
             //      new Person { FullName = "Rowan Miller" }
             //    );
             //
+
+            context.TipoServico.AddOrUpdate(
+                ts => ts.Descricao,
+                new TipoServico { Descricao = "Corte" },
+                new TipoServico { Descricao = "Barba" }
+                );
         }
     }
 }

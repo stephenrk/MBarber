@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Web.Mvc;
 
 namespace UNASP.MBarber.UI.Web.Models
 {
@@ -18,5 +19,6 @@ namespace UNASP.MBarber.UI.Web.Models
     
         public EnderecoModel Endereco { get; set; }
         public IList<ServicoModel> Servicos { get; set; }
+        public SelectList TiposServicos { get; set; }
     }
 }

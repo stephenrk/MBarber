@@ -15,6 +15,7 @@ namespace UNASP.MBarber.Repository.ConnectionContext.Context
         public virtual DbSet<Endereco> Enderecos { get; set; }
         public virtual DbSet<Login> Logins { get; set; }
         public virtual DbSet<Servico> Servicos { get; set; }
+        public virtual DbSet<TipoServico> TipoServico { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
@@ -118,6 +119,10 @@ namespace UNASP.MBarber.Repository.ConnectionContext.Context
                 .HasMany(e => e.Avaliacoes)
                 .WithRequired(e => e.Servico)
                 .WillCascadeOnDelete(false);
+
+            modelBuilder.Entity<TipoServico>()
+                .Property(e => e.Descricao)
+                .IsUnicode(false);
         }
     }
 }

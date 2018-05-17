@@ -48,6 +48,7 @@
     <Reference Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BarberRepository.cs" />
     <Compile Include="ClienteRepository.cs" />
     <Compile Include="ConnectionContext\Agendamento.cs" />
     <Compile Include="ConnectionContext\Avaliacao.cs" />
@@ -56,9 +57,14 @@
     <Compile Include="ConnectionContext\Endereco.cs" />
     <Compile Include="ConnectionContext\Login.cs" />
     <Compile Include="ConnectionContext\Context\MBarberContext.cs" />
+    <Compile Include="ConnectionContext\TipoServico.cs" />
     <Compile Include="Migrations\201805062230330_PrimeiraMigracao.cs" />
     <Compile Include="Migrations\201805062230330_PrimeiraMigracao.Designer.cs">
       <DependentUpon>201805062230330_PrimeiraMigracao.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201805171737599_AddTipoServico.cs" />
+    <Compile Include="Migrations\201805171737599_AddTipoServico.Designer.cs">
+      <DependentUpon>201805171737599_AddTipoServico.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="ConnectionContext\Servico.cs" />
@@ -72,6 +78,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201805062230330_PrimeiraMigracao.resx">
       <DependentUpon>201805062230330_PrimeiraMigracao.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201805171737599_AddTipoServico.resx">
+      <DependentUpon>201805171737599_AddTipoServico.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
