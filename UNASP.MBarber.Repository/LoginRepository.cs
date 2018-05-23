@@ -28,7 +28,7 @@ namespace UNASP.MBarber.Repository
         {
             using (MBarberContext _context = new MBarberContext())
             {
-                return _context.Logins.Where(l => l.Email == email && l.Senha == senha).FirstOrDefault(); ;
+                return _context.Logins.Where(l => l.Email == email && l.Senha == senha).FirstOrDefault();
             }
         }
 

@@ -20,6 +20,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <RunCodeAnalysis>true</RunCodeAnalysis>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -55,9 +56,11 @@
     <Compile Include="ConnectionContext\Cliente.cs" />
     <Compile Include="ConnectionContext\Empresa.cs" />
     <Compile Include="ConnectionContext\Endereco.cs" />
+    <Compile Include="ConnectionContext\Imagem.cs" />
     <Compile Include="ConnectionContext\Login.cs" />
     <Compile Include="ConnectionContext\Context\MBarberContext.cs" />
     <Compile Include="ConnectionContext\TipoServico.cs" />
+    <Compile Include="ImagemRepository.cs" />
     <Compile Include="Migrations\201805062230330_PrimeiraMigracao.cs" />
     <Compile Include="Migrations\201805062230330_PrimeiraMigracao.Designer.cs">
       <DependentUpon>201805062230330_PrimeiraMigracao.cs</DependentUpon>
@@ -65,6 +68,34 @@
     <Compile Include="Migrations\201805171737599_AddTipoServico.cs" />
     <Compile Include="Migrations\201805171737599_AddTipoServico.Designer.cs">
       <DependentUpon>201805171737599_AddTipoServico.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201805232009168_EntidadeImagem.cs" />
+    <Compile Include="Migrations\201805232009168_EntidadeImagem.Designer.cs">
+      <DependentUpon>201805232009168_EntidadeImagem.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201805232010524_EntidadeImagem1.cs" />
+    <Compile Include="Migrations\201805232010524_EntidadeImagem1.Designer.cs">
+      <DependentUpon>201805232010524_EntidadeImagem1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201805232013245_ImagemEmpresa.cs" />
+    <Compile Include="Migrations\201805232013245_ImagemEmpresa.Designer.cs">
+      <DependentUpon>201805232013245_ImagemEmpresa.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201805232019372_ImagemEmpresa1.cs" />
+    <Compile Include="Migrations\201805232019372_ImagemEmpresa1.Designer.cs">
+      <DependentUpon>201805232019372_ImagemEmpresa1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201805232100508_AlteracaoEmpresaImagem.cs" />
+    <Compile Include="Migrations\201805232100508_AlteracaoEmpresaImagem.Designer.cs">
+      <DependentUpon>201805232100508_AlteracaoEmpresaImagem.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201805232135373_AlteracaoEmpresaImagem1.cs" />
+    <Compile Include="Migrations\201805232135373_AlteracaoEmpresaImagem1.Designer.cs">
+      <DependentUpon>201805232135373_AlteracaoEmpresaImagem1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201805232326206_AddDataInclusaoEmpresa.cs" />
+    <Compile Include="Migrations\201805232326206_AddDataInclusaoEmpresa.Designer.cs">
+      <DependentUpon>201805232326206_AddDataInclusaoEmpresa.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="ConnectionContext\Servico.cs" />
@@ -81,6 +112,27 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201805171737599_AddTipoServico.resx">
       <DependentUpon>201805171737599_AddTipoServico.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201805232009168_EntidadeImagem.resx">
+      <DependentUpon>201805232009168_EntidadeImagem.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201805232010524_EntidadeImagem1.resx">
+      <DependentUpon>201805232010524_EntidadeImagem1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201805232013245_ImagemEmpresa.resx">
+      <DependentUpon>201805232013245_ImagemEmpresa.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201805232019372_ImagemEmpresa1.resx">
+      <DependentUpon>201805232019372_ImagemEmpresa1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201805232100508_AlteracaoEmpresaImagem.resx">
+      <DependentUpon>201805232100508_AlteracaoEmpresaImagem.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201805232135373_AlteracaoEmpresaImagem1.resx">
+      <DependentUpon>201805232135373_AlteracaoEmpresaImagem1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201805232326206_AddDataInclusaoEmpresa.resx">
+      <DependentUpon>201805232326206_AddDataInclusaoEmpresa.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

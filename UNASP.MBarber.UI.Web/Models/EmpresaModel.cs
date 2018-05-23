@@ -16,8 +16,10 @@ namespace UNASP.MBarber.UI.Web.Models
         public string Cnpj { get; set; }
         public string Nome { get; set; }
         public string NomeReduzido { get; set; }
-    
+        public DateTime DataInclusao { get; set; }
+
         public EnderecoModel Endereco { get; set; }
+        public ImagemModel Imagem { get; set; }
         public IList<ServicoModel> Servicos { get; set; }
         public SelectList TiposServicos { get; set; }
     }

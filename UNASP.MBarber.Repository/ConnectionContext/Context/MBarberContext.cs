@@ -16,6 +16,7 @@ namespace UNASP.MBarber.Repository.ConnectionContext.Context
         public virtual DbSet<Login> Logins { get; set; }
         public virtual DbSet<Servico> Servicos { get; set; }
         public virtual DbSet<TipoServico> TipoServico { get; set; }
+        public virtual DbSet<Imagem> Imagem { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
@@ -123,6 +124,32 @@ namespace UNASP.MBarber.Repository.ConnectionContext.Context
             modelBuilder.Entity<TipoServico>()
                 .Property(e => e.Descricao)
                 .IsUnicode(false);
+
+            modelBuilder.Entity<Imagem>()
+                .ToTable("Imagens");
+
+            modelBuilder.Entity<Imagem>()
+                .HasKey(x => x.Id);
+
+            modelBuilder.Entity<Imagem>()
+                .Property(x => x.Id);
+
+            modelBuilder.Entity<Imagem>()
+                .Property(x => x.Description)
+                .HasMaxLength(50)
+                .IsRequired();
+
+            modelBuilder.Entity<Imagem>()
+                .Property(x => x.Length)
+                .IsRequired();
+
+            modelBuilder.Entity<Imagem>()
+                .Property(x => x.Picture);
+
+            modelBuilder.Entity<Imagem>()
+                .Property(x => x.ContentType)
+                .IsRequired()
+                .HasMaxLength(20);
         }
     }
 }

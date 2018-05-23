@@ -28,6 +28,10 @@ namespace UNASP.MBarber.Repository.ConnectionContext
 
         public virtual Endereco Endereco { get; set; }
 
+        public virtual Imagem Imagem { get; set; }
+
+        public DateTime DataInclusao { get; set; }
+
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Servico> Servicos { get; set; }
     }

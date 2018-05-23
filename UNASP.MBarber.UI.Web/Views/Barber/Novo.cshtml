@@ -13,7 +13,7 @@
     <link href="~/Content/css/plugins/summernote/summernote-bs3.css" rel="stylesheet" />
     <style type="text/css">
         .wizard-big.wizard > .content {
-            min-height: 638px;
+            min-height: 1000px;
         }
     </style>
 }
@@ -40,47 +40,73 @@
 <div class="wrapper wrapper-content">
     <div class="animated fadeInRight">
         <p>Informe abaixo os dados do produto</p>
-        @using (Html.BeginForm("Incluir", "Barber", FormMethod.Post, new { @class = "wizard-big", id = "form" }))
+        @using (Html.BeginForm("Novo", "Barber", FormMethod.Post, new { @class = "wizard-big", id = "form", enctype = "multipart/form-data" }))
         {
-            <h1>Inf. do Produto</h1>
+            <h1>Inf. do Negócio</h1>
             <fieldset>
-                <h2>Informações do Produto</h2>
+                <h2>Informações do Negócio</h2>
                 <div class="row">
                     <div class="col-lg-8">
                         <div class="form-group">
-                            <label for="exampleInputEmail1" id="tiposServicos">Tipos de serviços oferecidos</label>
+                            @Html.LabelFor(e => e.Nome)
+                            @Html.TextBoxFor(e => e.Nome, new { @class = "form-control" })
+                        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(e => e.NomeReduzido)
+                            @Html.TextBoxFor(e => e.NomeReduzido, new { @class = "form-control" })
+                        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(e => e.Cnpj)
+                            @Html.TextBoxFor(e => e.Cnpj, new { @class = "form-control" })
+                        </div>
+                        <div class="form-group">
+                            <label for="Servicos" id="tiposServicos">Tipos de serviços oferecidos</label>
+                            <label for="Servicos" generated="true" class="error"></label>
                             @foreach (var item in ViewBag.TiposServicos)
                             {
                                 <div class="checkbox">
                                     <label>
                                         <input type="checkbox"
-                                               name="tiposServicosSelecionados"
+                                               name="Servicos"
                                                value="@item.Id" /> @item.Descricao
                                         </label>
                                     </div>
                                 }
                         </div>
+
                         <div class="form-group">
-                            <label for="exampleInputPassword1">Título</label>
-                            <input type="text" class="form-control required" name="titulo" id="titulo" placeholder="ex: Pão de Forma" />
+                            @Html.LabelFor(x => x.Endereco.Cep)
+                            @Html.TextBoxFor(x => x.Endereco.Cep, new { @class = "form-control", placeholder = "CEP", data_mask = "99999-999", id = "cep", onblur = "pesquisacep(this.value); " })
+                        </div>
+
+                        <div class="form-group">
+                            @Html.LabelFor(x => x.Endereco.Logradouro)
+                            @Html.TextBoxFor(x => x.Endereco.Logradouro, new { @class = "form-control", placeholder = "Rua", id = "rua" })
                         </div>
                         <div class="form-group">
-                            <label for="exampleInputPassword1">Descrição</label>
-                            <input name="decricao" id="descricao" type="text" class="form-control required" placeholder="Descrição do produto" />
+                            @Html.LabelFor(x => x.Endereco.Bairro)
+                            @Html.TextBoxFor(x => x.Endereco.Bairro, new { @class = "form-control", placeholder = "Bairro", id = "bairro" })
+                        </div>
+
+                        <div class="form-group">
+                            @Html.LabelFor(x => x.Endereco.Numero)
+                            @Html.TextBoxFor(x => x.Endereco.Numero, new { @class = "form-control", placeholder = "Numero", id = "numero" })
                         </div>
                         <div class="form-group">
-                            <label for="exampleInputPassword1" id="labelTeste" style="padding-left:0">Imagem do produto</label>
-                            <div class="fileinput fileinput-new col-xs-12" data-provides="fileinput">
-                                <div class="fileinput-new thumbnail" style="width: 150px; height: 150px;">
-                                    <img src="https://s3.amazonaws.com/popco/images/services/starter-page/img-round-placeholder.jpg" alt="Imagem do produto" />
-                                </div>
-                                <div class="fileinput-preview fileinput-exists thumbnail" style="max-width: 200px; max-height: 150px;"></div>
-                                <div>
-                                    <span class="btn btn-default btn-file"><span class="fileinput-new">Selecionar</span><span class="fileinput-exists">Trocar</span><input type="file" name="teste" class="required" /></span>
-                                    <a href="#" class="btn btn-default fileinput-exists" data-dismiss="fileinput">Remover</a>
-                                </div>
-                            </div>
+                            @Html.LabelFor(x => x.Endereco.Complemento)
+                            @Html.TextBoxFor(x => x.Endereco.Complemento, new { @class = "form-control", placeholder = "Complemento" })
                         </div>
+
+                        <div class="form-group">
+                            @Html.LabelFor(x => x.Endereco.Cidade)
+                            @Html.TextBoxFor(x => x.Endereco.Cidade, new { @class = "form-control", placeholder = "Cidade", id = "cidade" })
+                        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(x => x.Endereco.Estado)
+                            @Html.TextBoxFor(x => x.Endereco.Estado, new { @class = "form-control", placeholder = "Estado", id = "uf" })
+                        </div>
+
+
                     </div>
                     <div class="col-lg-4">
                         <div class="text-center">
@@ -98,22 +124,31 @@
                 <div class="row">
                     <div class="col-lg-6">
                         <div class="form-group">
-                            <label>First name *</label>
-                            <input id="name" name="name" type="text" class="form-control required" />
+                            <label for="exampleInputPassword1" id="labelTeste" style="padding-left:0">Imagem do produto</label>
+                            <div class="fileinput fileinput-new col-xs-12" data-provides="fileinput">
+                                <div class="fileinput-new thumbnail" style="width: 150px; height: 150px;">
+                                    <img src="https://s3.amazonaws.com/popco/images/services/starter-page/img-round-placeholder.jpg" alt="Imagem do produto" />
+                                </div>
+                                <div class="fileinput-preview fileinput-exists thumbnail" style="max-width: 200px; max-height: 150px;"></div>
+                                <div>
+                                    <span class="btn btn-default btn-file"><span class="fileinput-new">Selecionar</span><span class="fileinput-exists">Trocar</span><input type="file" name="file" class="required" /></span>
+                                    <a href="#" class="btn btn-default fileinput-exists" data-dismiss="fileinput">Remover</a>
+                                </div>
+                            </div>
                         </div>
                         <div class="form-group">
                             <label>Last name *</label>
-                            <input id="surname" name="surname" type="text" class="form-control required" />
+                            <input id="surname" type="text" class="form-control" />
                         </div>
                     </div>
                     <div class="col-lg-6">
                         <div class="form-group">
                             <label>Email *</label>
-                            <input id="email" name="email" type="text" class="form-control required email" />
+                            <input id="email" type="text" class="form-control email" />
                         </div>
                         <div class="form-group">
                             <label>Address *</label>
-                            <input id="address" name="address" type="text" class="form-control" />
+                            <input id="address" type="text" class="form-control" />
                         </div>
                     </div>
                 </div>
@@ -165,12 +200,12 @@
 
             $('#form').validate({ // initialize the plugin
                 rules: {
-                    'tiposServicosSelecionados': {
-                        required: true,
+                    'Servicos': {
+                        required: false,
                     }
                 },
                 messages: {
-                    'tiposServicosSelecionados': {
+                    'Servicos': {
                         required: "Você precisa selecionar ao menos 1 serviço",
                     }
                 }
@@ -222,18 +257,6 @@
 
                     // Submit form input
                     form.submit();
-                }
-            }).validate({
-                errorPlacement: function (error, element) {
-                    if (element.attr('name') === 'teste') {
-                        error.insertAfter($('label#labelTeste'));
-                    }
-                    if (element.attr('name') === 'tiposServicosSelecionados') {
-                        error.insertAfter($('label#tiposServicos'));
-                    }
-                    else {
-                        element.before(error);
-                    }
                 }
             });
         });
